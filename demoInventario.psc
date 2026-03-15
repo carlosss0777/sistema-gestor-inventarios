@@ -67,7 +67,36 @@ Algoritmo demoInventario
 				// Parte 3: pedir al usuario el nombre del producto al que quiere añadir
 				// stock. Finalmente sumar y mostrar el stock total
 			3:
-				
+				Si numeroProductos == 0 Entonces
+					Escribir "No se han registrado productos"
+					
+				SiNo
+					Repetir
+						Escribir "Seleccione el indice del producto (1 al ", numeroProductos, "):"
+						
+						Para i <- 1 Hasta numeroProductos Hacer
+							Escribir i, "- ", productos[i], " (Stock: ", stockProductos[i], ")"
+						FinPara
+						
+						Leer posicion
+						
+						Si posicion <= 0 O posicion >= numeroProductos
+							Escribir "Error: Indice de producto no valido. Intenta nuevamente..."
+							Escribir ""
+						FinSi
+					Hasta Que posicion >= 1 Y posicion <= numeroProductos
+					
+					Escribir "Has seleccionado: ", productos[posicion]
+					Escribir "Stock actual: ", stockProductos[posicion]
+					Escribir "Cantidad a añadir:"
+					Leer stock
+					
+					stockProductos[posicion] <- stockProductos[posicion] + stock
+					Escribir "------ Nuevo stock: ", stockProductos[posicion]," ----------"
+					Escribir ""
+					Esperar 500 Milisegundos
+					
+				FinSi
 				
 				// Parte 4: pedir al usuario el nombre del producto al que quiere restar
 				// stock. Finalmente sumar y mostrar el stock total
@@ -95,6 +124,7 @@ Algoritmo demoInventario
 							Esperar 500 Milisegundos
 						Sino
 							Escribir "Error: No hay suficiente stock disponible"
+							Escribir ""
 						FinSi
 					Sino
 						Escribir "Error: El numero de producto no es válido"
