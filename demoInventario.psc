@@ -80,7 +80,7 @@ Algoritmo demoInventario
 						
 						Leer posicion
 						
-						Si posicion <= 0 O posicion >= numeroProductos
+						Si posicion <= 0 O posicion > numeroProductos
 							Escribir "Error: Indice de producto no valido. Intenta nuevamente..."
 							Escribir ""
 						FinSi
