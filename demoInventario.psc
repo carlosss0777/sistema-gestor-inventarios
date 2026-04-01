@@ -1,28 +1,22 @@
 Algoritmo demoInventario
-	Definir option, stock, stockProductos, numeroProductos Como Entero
-	Definir proveedores, productos, nombreProducto Como Caracter
+	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion Como Entero
+	Definir proveedores, productos, nombreProducto, nombreProveedor Como Caracter
 	Definir precio, preciosProductos Como Real
+	Definir encontrado Como Logico
 	
 	Dimension productos[100] // lista d productos
 	Dimension stockProductos[100] // lista de cantidades
 	Dimension precioProductos[100] // lista de precios
-	// Dimension proveedores[3]  
+	Dimension proveedores[10] // lista de proveedores
 	
-	proveedores <- "Logitech"
-	
-	// proveedores[1] <- "Logitech"
-	// proveedores[2] <- "Samsung" // proveedores iniciales 
-	// proveedores[3] <- "Razer"
-	
-	option <- 0
-	
-	Mientras option <> 5 Hacer
+	Mientras option <> 6 Hacer
 		Escribir "-- SISTEMA DE INVENTARIO --"
 		Escribir "1. Registrar producto"
-		Escribir "2. Ver Stock"
-		Escribir "3. Aumentar stock"
-		Escribir "4. Disminuir stock"
-		Escribir "5. Salir del sistema"
+		Escribir "2. Ver stock"
+		Escribir "3. Registrar proveedor"
+		Escribir "4. Aumentar stock"
+		Escribir "5. Disminuir stock"
+		Escribir "6. Salir del sistema"
 		Leer option
 		
 		Segun option Hacer
@@ -66,7 +60,39 @@ Algoritmo demoInventario
 				
 				// Parte 3: pedir al usuario el nombre del producto al que quiere añadir
 				// stock. Finalmente sumar y mostrar el stock total
+				
 			3:
+				Si numeroProveedores > 10 Entonces
+					Escribir "Maximo de proveedores alcanzado"
+					
+				SiNo
+					Escribir "Ingresa el nombre del proveedor: "
+					Leer nombreProveedor
+					
+					encontrado <- Falso
+					Si numeroProveedores > 0 Entonces
+						Para i <- 1 Hasta numeroProveedores Hacer
+							Si Mayusculas(proveedores[i]) = Mayusculas(nombreProveedor) Entonces
+								encontrado <- Verdadero
+							FinSi
+						FinPara	
+					FinSi
+					
+					Si encontrado = Verdadero Entonces
+						Escribir ""
+						Escribir "Error: El proveedor ya ha sido registrado"
+						Escribir ""
+						
+					SiNo
+						numeroProveedores = numeroProveedores + 1
+						proveedores[numeroProveedores] <- nombreProveedor
+						Escribir ""
+						Escribir "---- Proveedor registrado con éxito ----"
+						Escribir ""
+					FinSi
+				FinSi
+				
+			4:
 				Si numeroProductos == 0 Entonces
 					Escribir "No se han registrado productos"
 					
@@ -100,7 +126,7 @@ Algoritmo demoInventario
 				
 				// Parte 4: pedir al usuario el nombre del producto al que quiere restar
 				// stock. Finalmente sumar y mostrar el stock total
-			4:
+			5:
 				Si numeroProductos = 0 Entonces
 					Escribir "No hay productos registrados aun"
 				Sino
@@ -131,7 +157,7 @@ Algoritmo demoInventario
 					FinSi
 				FinSi
 				
-			5:
+			6:
 				Escribir "Saliendo del sistema..."
 				
 			De Otro Modo:
