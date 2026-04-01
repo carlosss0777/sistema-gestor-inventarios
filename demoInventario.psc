@@ -4,7 +4,7 @@ Algoritmo demoInventario
 	Definir precio, preciosProductos Como Real
 	Definir encontrado Como Logico
 	
-	Dimension productos[100] // lista d productos
+	Dimension productos[100] // lista de productos
 	Dimension stockProductos[100] // lista de cantidades
 	Dimension precioProductos[100] // lista de precios
 	Dimension proveedores[10] // lista de proveedores
@@ -20,9 +20,8 @@ Algoritmo demoInventario
 		Leer option
 		
 		Segun option Hacer
-				// Parte 1: pedir al usuario el nombre del producto, la cantidad incial (stock) y el precio
-				// y añadir cada uno a la lista de productos, stpckProductos, precioProductos
 			1:
+				// Modulo 1: registro de los productos
 				Si numeroProductos < 100 Entonces
 					Escribir "Ingrese el nombre del producto:"
 					Leer nombreProducto
@@ -54,14 +53,13 @@ Algoritmo demoInventario
 					Escribir "Inventario lleno."
 				FinSi
 				
-				// Parte 2: Hacer un bucle para recorrer la lista de productos y mostrar el nombre, stock y precio
 			2:			
+				// Modulo 2: Consultar stock actual
 				
 				
-				// Parte 3: pedir al usuario el nombre del producto al que quiere añadir
-				// stock. Finalmente sumar y mostrar el stock total
 				
 			3:
+				// Modulo 3: registro de los proveedores
 				Si numeroProveedores > 10 Entonces
 					Escribir "Maximo de proveedores alcanzado"
 					
@@ -93,6 +91,7 @@ Algoritmo demoInventario
 				FinSi
 				
 			4:
+				// Modulo 4: aumentar stock de productos
 				Si numeroProductos == 0 Entonces
 					Escribir "No se han registrado productos"
 					
@@ -124,9 +123,8 @@ Algoritmo demoInventario
 					
 				FinSi
 				
-				// Parte 4: pedir al usuario el nombre del producto al que quiere restar
-				// stock. Finalmente sumar y mostrar el stock total
 			5:
+				// Modulo 5: restar stock de productos
 				Si numeroProductos = 0 Entonces
 					Escribir "No hay productos registrados aun"
 				Sino
@@ -158,6 +156,7 @@ Algoritmo demoInventario
 				FinSi
 				
 			6:
+				// Salida del sistema
 				Escribir "Saliendo del sistema..."
 				
 			De Otro Modo:
