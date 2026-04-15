@@ -8,7 +8,7 @@ Algoritmo demoInventario
 	Dimension stockProductos[100] // lista de cantidades
 	Dimension precioProductos[100] // lista de precios
 	Dimension proveedores[10] // lista de proveedores
-	Dimension proveedorProducto[100] // guarda ï¿½ndice del proveedor y producto
+	Dimension proveedorProducto[100] // guarda índice del proveedor y producto
 	
 	Mientras option <> 6 Hacer
 		Escribir "-- SISTEMA DE INVENTARIO --"
@@ -28,7 +28,7 @@ Algoritmo demoInventario
 					Esperar 500 Milisegundos
 				Sino
 					Repetir
-						Escribir "Seleccione el nï¿½mero del proveedor (1 al ", numeroProveedores, ") o 0 para salir:"
+						Escribir "Seleccione el número del proveedor (1 al ", numeroProveedores, ") o 0 para salir:"
 						
 						Para i <- 1 Hasta numeroProveedores Hacer
 							Escribir i, "- ", proveedores[i]
@@ -38,13 +38,13 @@ Algoritmo demoInventario
 					
 						
 						Si posicion <> 0 Y (posicion < 1 O posicion > numeroProveedores) Entonces
-							Escribir "Error: opciï¿½n invï¿½lida. Intente nuevamente"
+							Escribir "Error: opción inválida. Intente nuevamente"
 							Esperar 500 Milisegundos
 						FinSi
 						
 					Hasta Que (posicion >= 1 Y posicion <= numeroProveedores) O posicion = 0
 					Si posicion = 0 Entonces
-						Escribir "Cancelando selecciï¿½n..."
+						Escribir "Cancelando selección..."
 					SiNo
 						Si numeroProductos < 100 Entonces
 							Escribir "Ingrese el nombre del producto:"
@@ -75,7 +75,7 @@ Algoritmo demoInventario
 								Leer precioProductos[numeroProductos]
 								
 								Escribir "---- Producto: ",nombreProducto," ----"
-								Escribir "---- Proveedor: ", proveedores[posicion]," registrado con ï¿½xito ----"
+								Escribir "---- Proveedor: ", proveedores[posicion]," registrado con éxito ----"
 								Escribir ""
 								Esperar 500 Milisegundos
 							FinSi				
@@ -119,7 +119,7 @@ Algoritmo demoInventario
 						numeroProveedores = numeroProveedores + 1
 						proveedores[numeroProveedores] <- nombreProveedor
 						Escribir ""
-						Escribir "---- Proveedor registrado con ï¿½xito ----"
+						Escribir "---- Proveedor registrado con éxito ----"
 						Escribir ""
 					FinSi
 				FinSi
@@ -131,30 +131,33 @@ Algoritmo demoInventario
 					
 				SiNo
 					Repetir
-						Escribir "Seleccione el indice del producto (1 al ", numeroProductos, "):"
+						Escribir "Seleccione el indice del producto (1 al ", numeroProductos, ") o 0 para salir:"
 						
 						Para i <- 1 Hasta numeroProductos Hacer
-							Escribir i, "- ", productos[i], " (Stock: ", stockProductos[i], ")"
+							Escribir i, "- ", productos[i]," - ",proveedores[proveedorProducto[i]], " (Stock: ", stockProductos[i], ")"
 						FinPara
 						
 						Leer posicion
-						
-						Si posicion <= 0 O posicion > numeroProductos
-							Escribir "Error: Indice de producto no valido. Intenta nuevamente..."
+						Si posicion <> 0 Y (posicion <  numeroProductos O posicion > numeroProductos) Entonces
+							Escribir "Error: opción inválida. Intente nuevamente"
 							Escribir ""
-						FinSi
-					Hasta Que posicion >= 1 Y posicion <= numeroProductos
+						FinSi							
+					Hasta Que (posicion >= 1 Y posicion <= numeroProductos) O posicion = 0
 					
-					Escribir "Has seleccionado: ", productos[posicion]
-					Escribir "Stock actual: ", stockProductos[posicion]
-					Escribir "Cantidad a aï¿½adir:"
-					Leer stock
-					
-					stockProductos[posicion] <- stockProductos[posicion] + stock
-					Escribir "------ Nuevo stock: ", stockProductos[posicion]," ----------"
-					Escribir ""
-					Esperar 500 Milisegundos
-					
+					Si posicion = 0 Entonces
+						Escribir "Cancelando selección..."
+					SiNo
+						Escribir "Has seleccionado: ", productos[posicion]
+						Escribir "Stock actual: ", stockProductos[posicion]
+						Escribir "Cantidad a añadir:"
+						Leer stock
+						
+						stockProductos[posicion] <- stockProductos[posicion] + stock
+						Escribir "------ Nuevo stock: ", stockProductos[posicion]," ----------"
+						Escribir ""
+						Esperar 500 Milisegundos
+						
+					FinSi					
 				FinSi
 				
 			5:
@@ -185,7 +188,7 @@ Algoritmo demoInventario
 							Escribir ""
 						FinSi
 					Sino
-						Escribir "Error: El numero de producto no es vï¿½lido"
+						Escribir "Error: El numero de producto no es válido"
 					FinSi
 				FinSi
 				
