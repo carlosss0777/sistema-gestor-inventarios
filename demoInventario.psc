@@ -23,36 +23,69 @@ Algoritmo demoInventario
 		Segun option Hacer
 			1:
 				// Modulo 1: registro de los productos
-				Si numeroProductos < 100 Entonces
-					Escribir "Ingrese el nombre del producto:"
-					Leer nombreProducto
-					
-					encontrado <- Falso
-					Si numeroProductos > 0 Entonces
-						Para i <- 1 Hasta numeroProductos Hacer
-							Si Mayusculas(productos[i]) = Mayusculas(nombreProducto) Entonces
-								encontrado <- Verdadero
-							FinSi
-						FinPara	
-					FinSi
-					
-					Si encontrado = Verdadero Entonces
-						Escribir "Error: El producto ya existe en el inventario."
-						Esperar 500 Milisegundos
-					Sino
-						numeroProductos <- numeroProductos + 1
-						productos[numeroProductos] <- nombreProducto
-						Escribir "Ingresar cantidad inicial (stock):"
-						Leer stockProductos[numeroProductos]
-						Escribir "Ingresar precio del producto:"
-						Leer precioProductos[numeroProductos]
-						Escribir "---- Producto: ",nombreProducto," registrado con �xito ----"
-						Escribir ""
-						Esperar 500 Milisegundos
-					FinSi
+				Si numeroProveedores = 0 Entonces
+					Escribir "Error: debe registrar proveedores primero"
+					Esperar 500 Milisegundos
 				Sino
-					Escribir "Inventario lleno."
-				FinSi
+					Repetir
+						Escribir "Seleccione el n�mero del proveedor (1 al ", numeroProveedores, ") o 0 para salir:"
+						
+						Para i <- 1 Hasta numeroProveedores Hacer
+							Escribir i, "- ", proveedores[i]
+						FinPara
+						
+						Leer posicion
+					
+						
+						Si posicion <> 0 Y (posicion < 1 O posicion > numeroProveedores) Entonces
+							Escribir "Error: opci�n inv�lida. Intente nuevamente"
+							Esperar 500 Milisegundos
+						FinSi
+						
+					Hasta Que (posicion >= 1 Y posicion <= numeroProveedores) O posicion = 0
+					Si posicion = 0 Entonces
+						Escribir "Cancelando selecci�n..."
+					SiNo
+						Si numeroProductos < 100 Entonces
+							Escribir "Ingrese el nombre del producto:"
+							Leer nombreProducto
+							
+							encontrado <- Falso
+							Si numeroProductos > 0 Entonces
+								Para i <- 1 Hasta numeroProductos Hacer
+									Si Mayusculas(productos[i]) = Mayusculas(nombreProducto) Y proveedorProducto[i] = posicion Entonces
+										encontrado <- Verdadero
+									FinSi							
+								FinPara
+							FinSi		
+							
+							Si encontrado = Verdadero Entonces
+								Escribir "Error: Este producto ya existe con ese proveedor"
+								Esperar 500 Milisegundos
+							Sino						
+								numeroProductos <- numeroProductos + 1
+								
+								productos[numeroProductos] <- nombreProducto
+								proveedorProducto[numeroProductos] <- posicion 
+								
+								Escribir "Ingresar cantidad inicial (stock):"
+								Leer stockProductos[numeroProductos]
+								
+								Escribir "Ingresar precio del producto:"
+								Leer precioProductos[numeroProductos]
+								
+								Escribir "---- Producto: ",nombreProducto," ----"
+								Escribir "---- Proveedor: ", proveedores[posicion]," registrado con �xito ----"
+								Escribir ""
+								Esperar 500 Milisegundos
+							FinSi				
+						Sino
+							Escribir "Inventario lleno."
+						FinSi
+					FinSi
+				FinSi   
+				
+			
 				
 			2:			
 				// Modulo 2: Consultar stock actual
