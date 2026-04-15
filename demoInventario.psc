@@ -1,5 +1,5 @@
 Algoritmo demoInventario
-	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion Como Entero
+	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion, proveedorProducto Como Entero
 	Definir proveedores, productos, nombreProducto, nombreProveedor Como Caracter
 	Definir precio, preciosProductos Como Real
 	Definir encontrado Como Logico
@@ -8,6 +8,7 @@ Algoritmo demoInventario
 	Dimension stockProductos[100] // lista de cantidades
 	Dimension precioProductos[100] // lista de precios
 	Dimension proveedores[10] // lista de proveedores
+	Dimension proveedorProducto[100] // guarda ï¿½ndice del proveedor y producto
 	
 	Mientras option <> 6 Hacer
 		Escribir "-- SISTEMA DE INVENTARIO --"
@@ -45,7 +46,7 @@ Algoritmo demoInventario
 						Leer stockProductos[numeroProductos]
 						Escribir "Ingresar precio del producto:"
 						Leer precioProductos[numeroProductos]
-						Escribir "---- Producto: ",nombreProducto," registrado con éxito ----"
+						Escribir "---- Producto: ",nombreProducto," registrado con ï¿½xito ----"
 						Escribir ""
 						Esperar 500 Milisegundos
 					FinSi
@@ -85,7 +86,7 @@ Algoritmo demoInventario
 						numeroProveedores = numeroProveedores + 1
 						proveedores[numeroProveedores] <- nombreProveedor
 						Escribir ""
-						Escribir "---- Proveedor registrado con éxito ----"
+						Escribir "---- Proveedor registrado con ï¿½xito ----"
 						Escribir ""
 					FinSi
 				FinSi
@@ -113,7 +114,7 @@ Algoritmo demoInventario
 					
 					Escribir "Has seleccionado: ", productos[posicion]
 					Escribir "Stock actual: ", stockProductos[posicion]
-					Escribir "Cantidad a añadir:"
+					Escribir "Cantidad a aï¿½adir:"
 					Leer stock
 					
 					stockProductos[posicion] <- stockProductos[posicion] + stock
@@ -151,7 +152,7 @@ Algoritmo demoInventario
 							Escribir ""
 						FinSi
 					Sino
-						Escribir "Error: El numero de producto no es válido"
+						Escribir "Error: El numero de producto no es vï¿½lido"
 					FinSi
 				FinSi
 				
