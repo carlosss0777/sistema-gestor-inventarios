@@ -1,6 +1,7 @@
+
 Algoritmo demoInventario
-	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion, proveedorProducto Como Entero
-	Definir proveedores, productos, nombreProducto, nombreProveedor Como Caracter
+	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion, proveedorProducto, num Como Entero
+	Definir proveedores, productos, nombreProducto, nombreProveedor, input Como Caracter
 	Definir precio, preciosProductos Como Real
 	Definir encontrado Como Logico
 	
@@ -89,6 +90,56 @@ Algoritmo demoInventario
 				
 			2:			
 				// Modulo 2: Consultar stock actual
+				
+				num  = 1
+				Mientras num <> 0 Hacer
+					Si numeroProductos == 0 Entonces
+						Escribir  "Buscando productos"
+						Esperar 1500 Milisegundos
+						Escribir "No hay productos en stock"
+						Esperar 500 Milisegundos
+						
+					SiNo
+						Escribir  "Buscando productos"
+						Esperar 1500 Milisegundos
+						Para i<-1 Hasta numeroProductos Hacer
+							Escribir i, "- Producto: ", productos[i],"  - Proveedor: ",proveedores[proveedorProducto[i]], " (Stock: ", stockProductos[i], ")"
+							Esperar 500 Milisegundos
+							
+						Fin para
+						
+					Fin si
+					Repetir
+						Escribir "Presione 0 para salir:"
+						Leer input
+						
+						esNumero <- Verdadero
+						
+						Para i <- 1 Hasta Longitud(input) Hacer
+							Si Subcadena(input, i, i) < "0" O Subcadena(input, i, i) > "9" Entonces
+								esNumero <- Falso
+							FinSi
+						FinPara
+						
+						Si esNumero Entonces
+							num <- ConvertirANumero(input)
+							
+							Si num <> 0 Entonces
+								esNumero <- Falso
+								Escribir "Error: debe ingresar 0"
+							SiNo
+								esNumero <- Verdadero
+							Fin Si
+						SiNo
+							Escribir "Error: debe ingresar solo números"
+						FinSi
+						
+					Hasta Que esNumero
+					
+					
+				Fin Mientras
+				
+				
 				
 				
 				
