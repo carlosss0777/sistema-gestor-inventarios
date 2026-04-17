@@ -10,6 +10,28 @@ Algoritmo demoInventario
 	Dimension proveedores[10] // lista de proveedores
 	Dimension proveedorProducto[100] // guarda índice del proveedor y producto
 	
+	// Datos iniciales
+	numeroProveedores <- 3
+	proveedores[1] <- "TechSupplier"
+	proveedores[2] <- "Global Electronics"
+	proveedores[3] <- "CompuWorld"
+	
+	numeroProductos <- 3
+	productos[1] <- "Laptop HP"
+	stockProductos[1] <- 10
+	precioProductos[1] <- 850
+	proveedorProducto[1] <- 1
+	
+	productos[2] <- "Mouse Logitech"
+	stockProductos[2] <- 25
+	precioProductos[2] <- 15
+	proveedorProducto[2] <- 1
+	
+	productos[3] <- "Teclado Redragon"
+	stockProductos[3] <- 20
+	precioProductos[3] <- 35
+	proveedorProducto[3] <- 2
+	
 	Mientras option <> 6 Hacer
 		Escribir "-- SISTEMA DE INVENTARIO --"
 		Escribir "1. Registrar producto"
