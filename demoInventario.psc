@@ -1,7 +1,6 @@
-
 Algoritmo demoInventario
-	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion, proveedorProducto, num Como Entero
-	Definir proveedores, productos, nombreProducto, nombreProveedor, input Como Caracter
+	Definir option, stock, stockProductos, numeroProductos, numeroProveedores, i, posicion, proveedorProducto Como Entero
+	Definir proveedores, productos, nombreProducto, nombreProveedor Como Caracter
 	Definir precio, preciosProductos Como Real
 	Definir encontrado Como Logico
 	
@@ -25,7 +24,9 @@ Algoritmo demoInventario
 			1:
 				// Modulo 1: registro de los productos
 				Si numeroProveedores = 0 Entonces
+					Escribir "------------------------------------------"
 					Escribir "Error: debe registrar proveedores primero"
+					Escribir "------------------------------------------"
 					Esperar 500 Milisegundos
 				Sino
 					Repetir
@@ -36,7 +37,6 @@ Algoritmo demoInventario
 						FinPara
 						
 						Leer posicion
-					
 						
 						Si posicion <> 0 Y (posicion < 1 O posicion > numeroProveedores) Entonces
 							Escribir "Error: opción inválida. Intente nuevamente"
@@ -45,7 +45,9 @@ Algoritmo demoInventario
 						
 					Hasta Que (posicion >= 1 Y posicion <= numeroProveedores) O posicion = 0
 					Si posicion = 0 Entonces
+						Escribir "-------------------------"
 						Escribir "Cancelando selección..."
+						Escribir "-------------------------"
 					SiNo
 						Si numeroProductos < 100 Entonces
 							Escribir "Ingrese el nombre del producto:"
@@ -61,7 +63,9 @@ Algoritmo demoInventario
 							FinSi		
 							
 							Si encontrado = Verdadero Entonces
+								Escribir "-------------------------------------------------"
 								Escribir "Error: Este producto ya existe con ese proveedor"
+								Escribir "-------------------------------------------------"
 								Esperar 500 Milisegundos
 							Sino						
 								numeroProductos <- numeroProductos + 1
@@ -81,72 +85,31 @@ Algoritmo demoInventario
 								Esperar 500 Milisegundos
 							FinSi				
 						Sino
+							Escribir "-------------------"
 							Escribir "Inventario lleno."
+							Escribir "-------------------"
 						FinSi
 					FinSi
 				FinSi   
 				
-			
-				
 			2:			
 				// Modulo 2: Consultar stock actual
-				
-				num  = 1
-				Mientras num <> 0 Hacer
-					Si numeroProductos == 0 Entonces
-						Escribir  "Buscando productos"
-						Esperar 1500 Milisegundos
-						Escribir "No hay productos en stock"
-						Esperar 500 Milisegundos
-						
-					SiNo
-						Escribir  "Buscando productos"
-						Esperar 1500 Milisegundos
-						Para i<-1 Hasta numeroProductos Hacer
-							Escribir i, "- Producto: ", productos[i],"  - Proveedor: ",proveedores[proveedorProducto[i]], " (Stock: ", stockProductos[i], ")"
-							Esperar 500 Milisegundos
-							
-						Fin para
-						
-					Fin si
-					Repetir
-						Escribir "Presione 0 para salir:"
-						Leer input
-						
-						esNumero <- Verdadero
-						
-						Para i <- 1 Hasta Longitud(input) Hacer
-							Si Subcadena(input, i, i) < "0" O Subcadena(input, i, i) > "9" Entonces
-								esNumero <- Falso
-							FinSi
-						FinPara
-						
-						Si esNumero Entonces
-							num <- ConvertirANumero(input)
-							
-							Si num <> 0 Entonces
-								esNumero <- Falso
-								Escribir "Error: debe ingresar 0"
-							SiNo
-								esNumero <- Verdadero
-							Fin Si
-						SiNo
-							Escribir "Error: debe ingresar solo números"
-						FinSi
-						
-					Hasta Que esNumero
-					
-					
-				Fin Mientras
-				
-				
-				
-				
+				Para  i <- 1 Hasta numeroProductos Con Paso 1 Hacer
+					Escribir "--- PRODUCTO ", i, " ---"
+					Escribir "Nombre del producto: ", productos[i]
+					Escribir "Proveedor del producto: ", proveedores[proveedorProducto[i]]
+					Escribir "Stock del producto: ", stockProductos[i]
+					Escribir "Precio del producto: ", precioProductos[i]
+					Escribir "---------------------------------------------------"
+					Escribir ""
+				FinPara
 				
 			3:
 				// Modulo 3: registro de los proveedores
 				Si numeroProveedores > 10 Entonces
+					Escribir "---------------------------------"
 					Escribir "Maximo de proveedores alcanzado"
+					Escribir "---------------------------------"
 					
 				SiNo
 					Escribir "Ingresa el nombre del proveedor: "
@@ -163,7 +126,9 @@ Algoritmo demoInventario
 					
 					Si encontrado = Verdadero Entonces
 						Escribir ""
+						Escribir "--------------------------------------------"
 						Escribir "Error: El proveedor ya ha sido registrado"
+						Escribir "--------------------------------------------"
 						Escribir ""
 						
 					SiNo
@@ -178,11 +143,13 @@ Algoritmo demoInventario
 			4:
 				// Modulo 4: aumentar stock de productos
 				Si numeroProductos == 0 Entonces
+					Escribir "--------------------------------"
 					Escribir "No se han registrado productos"
+					Escribir "--------------------------------"
 					
 				SiNo
 					Repetir
-						Escribir "Seleccione el indice del producto (1 al ", numeroProductos, ") o 0 para salir:"
+						Escribir "Seleccione el índice del producto (1 al ", numeroProductos, ") o 0 para salir:"
 						
 						Para i <- 1 Hasta numeroProductos Hacer
 							Escribir i, "- ", productos[i]," - ",proveedores[proveedorProducto[i]], " (Stock: ", stockProductos[i], ")"
@@ -196,7 +163,9 @@ Algoritmo demoInventario
 					Hasta Que (posicion >= 1 Y posicion <= numeroProductos) O posicion = 0
 					
 					Si posicion = 0 Entonces
+						Escribir "-------------------------"
 						Escribir "Cancelando selección..."
+						Escribir "-------------------------"
 					SiNo
 						Escribir "Has seleccionado: ", productos[posicion]
 						Escribir "Stock actual: ", stockProductos[posicion]
@@ -214,9 +183,11 @@ Algoritmo demoInventario
 			5:
 				// Modulo 5: restar stock de productos
 				Si numeroProductos = 0 Entonces
-					Escribir "No hay productos registrados aun"
+					Escribir "--------------------------------"
+					Escribir "No hay productos registrados aún"
+					Escribir "--------------------------------"
 				Sino
-					Escribir "Seleccione el numero del producto (1 al ", numeroProductos, "):"
+					Escribir "Seleccione el número del producto (1 al ", numeroProductos, "):"
 					Para i <- 1 Hasta numeroProductos Hacer
 						Escribir i, ". ", productos[i], " (Stock: ", stockProductos[i], ")"
 					FinPara
@@ -235,20 +206,30 @@ Algoritmo demoInventario
 							Escribir ""
 							Esperar 500 Milisegundos
 						Sino
+							Escribir "--------------------------------------------"
 							Escribir "Error: No hay suficiente stock disponible"
-							Escribir ""
+							Escribir "--------------------------------------------"
 						FinSi
 					Sino
-						Escribir "Error: El numero de producto no es válido"
+						Escribir "--------------------------------------------"
+						Escribir "Error: El número de producto no es válido"
+						Escribir "--------------------------------------------"
 					FinSi
 				FinSi
 				
 			6:
 				// Salida del sistema
+				Escribir ""
+				Escribir "-------------------------"
 				Escribir "Saliendo del sistema..."
+				Escribir "-------------------------"
+				Esperar 500 Milisegundos
 				
 			De Otro Modo:
-				Escribir "Opcion no valida. Intenta nuevamente..."
+				Escribir ""
+				Escribir "--------------------------------------------"
+				Escribir "Opción no válida. Intenta nuevamente..."
+				Escribir "--------------------------------------------"
 				Escribir ""
 		FinSegun
 	FinMientras
