@@ -79,6 +79,7 @@ Algoritmo demoInventario
 								Escribir "Ingresar precio del producto:"
 								Leer precioProductos[numeroProductos]
 								
+								Escribir ""
 								Escribir "---- Producto: ",nombreProducto," ----"
 								Escribir "---- Proveedor: ", proveedores[posicion]," registrado con éxito ----"
 								Escribir ""
@@ -94,15 +95,22 @@ Algoritmo demoInventario
 				
 			2:			
 				// Modulo 2: Consultar stock actual
-				Para  i <- 1 Hasta numeroProductos Con Paso 1 Hacer
-					Escribir "--- PRODUCTO ", i, " ---"
-					Escribir "Nombre del producto: ", productos[i]
-					Escribir "Proveedor del producto: ", proveedores[proveedorProducto[i]]
-					Escribir "Stock del producto: ", stockProductos[i]
-					Escribir "Precio del producto: ", precioProductos[i]
-					Escribir "---------------------------------------------------"
-					Escribir ""
-				FinPara
+				Si numeroProductos == 0 Entonces
+					Escribir "---------------------------------"
+					Escribir "No hay productos registrados"
+					Escribir "---------------------------------"
+					
+				SiNo
+					Para  i <- 1 Hasta numeroProductos Con Paso 1 Hacer
+						Escribir "--- PRODUCTO ", i, " ---"
+						Escribir "Nombre del producto: ", productos[i]
+						Escribir "Proveedor del producto: ", proveedores[proveedorProducto[i]]
+						Escribir "Stock del producto: ", stockProductos[i]
+						Escribir "Precio del producto: ", precioProductos[i]
+						Escribir "---------------------------------------------------"
+						Escribir ""
+					FinPara
+				FinSi
 				
 			3:
 				// Modulo 3: registro de los proveedores
