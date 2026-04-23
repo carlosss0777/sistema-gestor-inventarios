@@ -1,0 +1,1 @@
+# Clase producto del sistema

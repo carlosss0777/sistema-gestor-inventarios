@@ -1,0 +1,1 @@
+# Clase movimiento_inventario del sistema
