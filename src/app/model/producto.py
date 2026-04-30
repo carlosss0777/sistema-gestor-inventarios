@@ -23,8 +23,6 @@ class Producto:
 
     @stock.setter
     def stock(self, valor):
-        if valor < 0:
-            raise ValueError("El stock no puede ser negativo")
         self._stock = valor
 
     @property
@@ -33,8 +31,6 @@ class Producto:
 
     @precio.setter
     def precio(self, valor):
-        if valor < 0:
-            raise ValueError("El precio no puede ser negativo")
         self._precio = valor
 
     @property

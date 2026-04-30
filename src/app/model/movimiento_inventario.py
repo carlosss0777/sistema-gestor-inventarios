@@ -28,4 +28,3 @@ class MovimientoInventario:
     @property
     def fecha(self):
         return self._fecha
-    
