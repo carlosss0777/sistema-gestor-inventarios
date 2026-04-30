@@ -21,8 +21,6 @@ class Proveedor:
 
     @telefono.setter
     def telefono(self, valor):
-        if not valor.isdigit():
-            raise ValueError("El teléfono solo debe contener números")
         self._telefono = valor
 
     # Email
@@ -32,8 +30,6 @@ class Proveedor:
 
     @email.setter
     def email(self, valor):
-        if "@" not in valor:
-            raise ValueError("El email no es válido")
         self._email = valor
 
 
