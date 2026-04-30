@@ -2,6 +2,8 @@
 
 from app.model.movimiento_inventario import MovimientoInventario
 
+from datetime import datetime
+
 class movimiento_service:
     def __init__(self):
         self.lista_movimientos = []
@@ -31,8 +33,10 @@ class movimiento_service:
         return cantidad_int
         
     # registro del movimiento
-    def registrar_movimiento(self, nombre_producto, tipo_movimiento, cantidad, fecha):
-        movimiento = MovimientoInventario(nombre_producto, tipo_movimiento, cantidad, fecha)
+    def registrar_movimiento(self, nombre_producto, tipo_movimiento, cantidad, fecha_hora):
+        fecha_hora = datetime.now()
+        
+        movimiento = MovimientoInventario(nombre_producto, tipo_movimiento, cantidad, fecha_hora)
         
         self.lista_movimientos.append(movimiento)
         
