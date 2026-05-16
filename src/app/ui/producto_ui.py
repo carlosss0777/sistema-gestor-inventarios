@@ -18,8 +18,10 @@ class producto_ui:
                 print("1- Registrar producto")
                 print("2- Mostrar productos")
                 print("3- Eliminar producto")
-                print("4- Actualizar precio de un producto")
+                print("4- Actualizar producto")
                 print("5- Mostrar stock actual")
+                print("6- Actualizar precio de un producto")
+                print("7- Actualizar stock de un producto")
                 print("0- Volver al menú principal")
             
                 try:
@@ -40,7 +42,11 @@ class producto_ui:
                 case 4:
                     self._actualizar_producto()
                 case 5:
-                    self._mostrar_stock()            
+                    self._mostrar_stock()
+                case 6:
+                    self._actualizar_precio_producto()
+                case 7:
+                    self._actualizar_stock_producto()
                 case 0:
                     print("\nVolviendo al menú principal...\n")
                     pausa()
@@ -115,6 +121,34 @@ class producto_ui:
         producto.precio      = self._pedir_precio(producto.precio)
         producto.descripcion = self._pedir_descripcion(producto.descripcion)
         producto.proveedor   = self._pedir_proveedor(producto.proveedor)
+        print("\nProducto actualizado correctamente.")
+        pausa()
+
+    # =========================
+    # ACTUALIZAR PRECIO DE PRODUCTOS
+    # =========================
+    def _actualizar_precio_producto(self):
+        limpiar_pantalla()
+        print("\n── Actualizar precio de producto ──")
+        producto = self._seleccionar_producto("Selecciona el número a actualizar (0 para cancelar): ")
+        if producto is None:
+            return
+        print(f"\nEditando: {producto.nombre} | Deja en blanco para conservar el valor actual.\n")        
+        producto.precio      = self._pedir_precio(producto.precio)        
+        print("\nProducto actualizado correctamente.")
+        pausa()
+
+    # =========================
+    # ACTUALIZAR PRECIO DE PRODUCTOS
+    # =========================
+    def _actualizar_stock_producto(self):
+        limpiar_pantalla()
+        print("\n── Actualizar precio de producto ──")
+        producto = self._seleccionar_producto("Selecciona el número a actualizar (0 para cancelar): ")
+        if producto is None:
+            return
+        print(f"\nEditando: {producto.nombre} | Deja en blanco para conservar el valor actual.\n")        
+        producto.stock       = self._pedir_stock(producto.stock)   
         print("\nProducto actualizado correctamente.")
         pausa()
 
