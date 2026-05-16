@@ -5,15 +5,17 @@ from app.ui.proveedor_ui import proveedor_ui
 from app.ui.movimiento_ui import movimiento_ui
 
 from app.service.proveedor_service import ProveedorService
+from app.service.producto_service import ProductoService
 
 from app.utils.tools import *
 
 class menu_principal:
     def __init__(self):
         self.proveedor_service  = ProveedorService()
+        self.producto_service  = ProductoService()
 
-        self.productoUI = producto_ui()
         self.proveedorUI = proveedor_ui(self.proveedor_service)
+        self.productoUI = producto_ui(self.producto_service, self.proveedor_service,self.proveedorUI)
         self.movimientoUI = movimiento_ui()
         
     def execute(self):
