@@ -89,3 +89,12 @@ class ProductoService:
             raise ValueError("Producto no encontrado")
 
         self.lista_productos.remove(producto)
+        
+    # =========================
+    # Validar duplicado
+    # =========================
+    
+    def validar_duplicado(self, nombre_producto, proveedor):
+        for producto in self.lista_productos:
+            if producto.nombre.lower() == nombre_producto.lower() and producto.proveedor == proveedor:
+                raise ValueError("Ya se ha registrado el mismo producto con el mismo proveedor")
