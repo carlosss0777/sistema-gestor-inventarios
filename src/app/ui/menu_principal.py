@@ -1,5 +1,6 @@
 # Menu principal del sistema
 
+from app.service.movimiento_service import movimiento_service
 from app.service.proveedor_service import ProveedorService
 from app.service.producto_service import ProductoService
 from app.ui.movimiento_ui import movimiento_ui
@@ -11,10 +12,11 @@ class menu_principal:
     def __init__(self):
         self.proveedor_service  = ProveedorService()
         self.producto_service  = ProductoService()
+        self.movimiento_service = movimiento_service()
 
         self.proveedorUI = proveedor_ui(self.proveedor_service)
         self.productoUI = producto_ui(self.producto_service, self.proveedor_service,self.proveedorUI)
-        self.movimientoUI = movimiento_ui()
+        self.movimientoUI = movimiento_ui(self.movimiento_service, self.producto_service, self.productoUI)
         
     def execute(self):
         while True:
