@@ -48,3 +48,6 @@ class Producto:
     @descripcion.setter
     def descripcion(self, valor):
         self._descripcion = valor
+        
+    def __str__(self):
+        return self.nombre
