@@ -67,3 +67,15 @@ class ProveedorService:
                 return proveedor
 
         return None
+        
+    # =========================
+    # ELIMINAR PROVEEDOR
+    # =========================
+
+    def eliminar_proveedor(self, nombre):
+        proveedor = self.buscar_proveedor(nombre)
+
+        if proveedor is None:
+            raise ValueError("Proveedor no encontrado")
+
+        self.lista_proveedores.remove(proveedor)    
