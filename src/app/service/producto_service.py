@@ -37,4 +37,26 @@ class ProductoService:
     def validar_descripcion(self, descripcion):
         if descripcion is None or descripcion.strip() == "":
             raise ValueError("La descripción no puede estar vacía")
-        return descripcion.strip()       
+        return descripcion.strip()
+
+    # =========================
+    # REGISTRAR PRODUCTO
+    # =========================
+
+    def registrar_producto(self, nombre, stock, proveedor, precio, descripcion):
+
+        nombre = self.validar_nombre(nombre)
+        stock = self.validar_stock(stock)
+        precio = self.validar_precio(precio)
+        descripcion = self.validar_descripcion(descripcion)
+
+        producto = Producto(
+            nombre,
+            stock,
+            proveedor,
+            precio,
+            descripcion
+            )
+
+        self.lista_productos.append(producto)       
+        
