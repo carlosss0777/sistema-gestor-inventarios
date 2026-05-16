@@ -29,23 +29,17 @@ class proveedor_ui:
             
             match opcion:
                 case 1:
-                    self._registrar_proveedor()
-                
+                    self._registrar_proveedor()                
                 case 2:
                     self._mostrar_proveedores()
                 case 3:
-                    limpiar_pantalla()
-                    pass
-                    continue
-                
+                    self._eliminar_proveedor()                
                 case 4:
-                    self._actualizar_proveedor()
-                
+                    self._actualizar_proveedor()            
                 case 0:
                     print("\nVolviendo al menú principal...\n")
                     pausa()
-                    break
-                
+                    break                
                 case _:
                     print("\nOpción no válida. Intenta nuevamente...")
                     pausa()
@@ -111,7 +105,25 @@ class proveedor_ui:
 
         print("\nProveedor actualizado correctamente.")
         pausa()
+
+    # =========================
+    # ELIMINAR PROVEEDORES
+    # =========================
+    def _eliminar_proveedor(self):
+        limpiar_pantalla()
+        print("\n── Eliminar proveedor ──")
+
+        proveedor = self._seleccionar_proveedor("Selecciona el número a actualizar (0 para cancelar): ")
+        if proveedor is None:
+            return
         
+        self.proveedor_service.eliminar_proveedor(proveedor.nombre)
+        
+        print("\nProveedor eliminado correctamente.")
+        pausa()
+
+
+
     def _seleccionar_proveedor(self, mensaje="Selecciona el número del proveedor (0 para cancelar): "):
         proveedores = self._listar_proveedores()
         if proveedores is None:
