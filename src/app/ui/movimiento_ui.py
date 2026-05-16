@@ -12,7 +12,9 @@ class movimiento_ui:
         while True:
             while True:
                 limpiar_pantalla()
-                print("\n== GESTIÓN DE MOVIMIENTOS ==")
+                print("\n----------------------------")
+                print("== GESTIÓN DE MOVIMIENTOS ==")
+                print("----------------------------")
                 print("1- Registrar movimiento")
                 print("2- Ver historial de movimientos")
                 print("0- Volver al menú principal")
