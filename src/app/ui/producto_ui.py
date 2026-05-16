@@ -36,10 +36,7 @@ class producto_ui:
                 case 2:
                     self._mostrar_productos()
                 case 3:
-                    limpiar_pantalla()
-                    pass
-                    continue
-                
+                    self._eliminar_productos()
                 case 4:
                     self._actualizar_producto()
                 case 5:
@@ -50,8 +47,7 @@ class producto_ui:
                 case 0:
                     print("\nVolviendo al menú principal...\n")
                     pausa()
-                    break
-                
+                    break                
                 case _:
                     print("\nOpción no válida. Intenta nuevamente...")
                     pausa()
@@ -124,6 +120,22 @@ class producto_ui:
         producto.proveedor   = self._pedir_proveedor(producto.proveedor)
         print("\nProducto actualizado correctamente.")
         pausa()
+
+    # =========================
+    # ELIMINAR PRODUCTOS
+    # =========================
+    def _eliminar_productos(self):
+        limpiar_pantalla()
+        print("\n── Eliminar producto ──")
+
+        producto = self._seleccionar_producto("Selecciona el número a actualizar (0 para cancelar): ")
+        if producto is None:
+            return
+        
+        self.producto_service.eliminar_producto(producto.nombre)
+        
+        print("\nProducto eliminado correctamente.")
+        pausa()    
     
     def _seleccionar_producto(self, mensaje="Selecciona el número del producto (0 para cancelar): "):
         productos = self._listar_productos()
