@@ -49,6 +49,9 @@ class entradas_salidas_ui:
                     print("\nOpción no válida. Intenta nuevamente...")
                     pausa()
     
+    # ============================================
+    # METODO PRINCIPAL PARA REGISTRO DE MOVIMIENTOS
+    # =============================================
     def _registrar_movimiento(self, tipo_movimiento):
         limpiar_pantalla()
     
@@ -69,13 +72,22 @@ class entradas_salidas_ui:
     
         print("\nMovimiento registrado correctamente.")
         detener()
-                    
+              
+    # =========================
+    # REGISTRAR ENTRADA
+    # =========================      
     def _registrar_entrada(self):
         self._registrar_movimiento("Entrada")
          
+    # =========================
+    # REGISTRAR SALIDA
+    # =========================
     def _registrar_salida(self):
         self._registrar_movimiento("Salida")
         
+    # ======================================
+    # PEDIR DE CANTIDAD A AUMENTAR/DISMINUIR
+    # ======================================
     def _pedir_cantidad(self, tipo_movimiento, stock_actual):
         while True:
             cantidad = input("Ingresa la cantidad a añadir: " if tipo_movimiento == "Entrada" else "Ingresa la cantidad a restar: "
