@@ -51,6 +51,10 @@ class movimiento_ui:
                     print("\nOpción no válida. Intenta nuevamente...")
                     pausa()
                     
+                    
+    # ======================================
+    # Mostrar historial de movimientos
+    # ======================================
     def _mostrar_historial(self):
         movimientos = self.movimiento_service.get_movimientos()
         
