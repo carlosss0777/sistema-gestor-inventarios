@@ -98,3 +98,22 @@ class ProductoService:
         for producto in self.lista_productos:
             if producto.nombre.lower() == nombre_producto.lower() and producto.proveedor == proveedor:
                 raise ValueError("Ya se ha registrado el mismo producto con el mismo proveedor")
+            
+    # =========================
+    # Disminuir o aumentar stock
+    # =========================
+    
+    def cambiar_stock(self, producto, cantidad, tipo_mov):
+        if tipo_mov == "Entrada":
+            stock_actual = producto.stock
+        
+            nuevo_stock = stock_actual + cantidad
+            
+            producto.stock = nuevo_stock
+            
+        elif tipo_mov == "Salida":
+            stock_actual = producto.stock
+        
+            nuevo_stock = stock_actual - cantidad
+            
+            producto.stock = nuevo_stock
