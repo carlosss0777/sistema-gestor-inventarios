@@ -1,9 +1,13 @@
-# Modulo de productos
-
 from app.utils.tools import *
+from app.service.producto_service import ProductoService
+from app.service.proveedor_service import ProveedorService
 
 class producto_ui:
     
+    def __init__(self, producto_service: ProductoService, proveedor_service: ProveedorService):
+        self.producto_service = producto_service
+        self.proveedor_service = proveedor_service
+
     def menu_producto(self):
         while True:
             while True:
@@ -31,10 +35,7 @@ class producto_ui:
                     continue
                 
                 case 2:
-                    limpiar_pantalla()
-                    pass
-                    continue
-                
+                    self._mostrar_productos()
                 case 3:
                     limpiar_pantalla()
                     pass
@@ -58,3 +59,33 @@ class producto_ui:
                 case _:
                     print("\nOpción no válida. Intenta nuevamente...")
                     pausa()
+
+    # =========================
+    # MOSTRAR PRODUCTOS
+    # =========================
+    def _mostrar_productos(self):
+        salir = False
+        while not salir:
+            limpiar_pantalla()
+            print("\n── Listado de productos ──")
+            if self._listar_productos() is None:
+                pausa()
+                salir = True
+            else:
+                print("\n0- Volver al menú")
+                if input("Elige una opción: ").strip() == "0":
+                    salir = True
+    
+    def _listar_productos(self):
+        productos = self.producto_service.get_productos()
+        if not productos:
+            print("\nNo hay productos registrados.")
+            return None
+        
+        print(f"\n{'#':<4} {'Nombre':<20} {'Stock':>6} {'Precio':>10} {'Proveedor':<20} Descripción")
+        print("─" * 80)
+        for i, p in enumerate(productos, 1):
+            nombre_prov = p.proveedor.nombre if p.proveedor else "Sin proveedor"
+            print(f"{i:<4} {p.nombre:<20} {p.stock:>6} {p.precio:>10.2f} {nombre_prov:<20} {p.descripcion}")
+
+        return productos
