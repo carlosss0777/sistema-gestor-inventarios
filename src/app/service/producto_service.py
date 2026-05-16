@@ -77,3 +77,15 @@ class ProductoService:
                 return producto
 
         return None
+    
+    # =========================
+    # ELIMINAR PRODUCTO
+    # =========================
+
+    def eliminar_producto(self, nombre):
+        producto = self.buscar_producto(nombre)
+
+        if producto is None:
+            raise ValueError("Producto no encontrado")
+
+        self.lista_productos.remove(producto)
