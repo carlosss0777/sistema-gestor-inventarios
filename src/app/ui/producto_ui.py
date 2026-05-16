@@ -40,10 +40,7 @@ class producto_ui:
                 case 4:
                     self._actualizar_producto()
                 case 5:
-                    limpiar_pantalla()
-                    pass
-                    continue
-                
+                    self._mostrar_stock()            
                 case 0:
                     print("\nVolviendo al menú principal...\n")
                     pausa()
@@ -135,7 +132,32 @@ class producto_ui:
         self.producto_service.eliminar_producto(producto.nombre)
         
         print("\nProducto eliminado correctamente.")
-        pausa()    
+        pausa()
+
+    # =========================
+    # MOSTRAR STOCKS DE PRODUCTOS
+    # =========================
+    def _mostrar_stock(self):
+        salir = False
+        while not salir:
+            limpiar_pantalla()
+            print("\n── Stock actual ──")
+            productos = self.producto_service.get_productos()
+            
+            if not productos:
+                print("\nNo hay productos registrados.")
+                pausa()
+                salir = True
+            else:
+                print(f"\n{'#':<4} {'Nombre':<25} {'Stock':>8}")
+                print("─" * 40)
+                for i, p in enumerate(productos, 1):
+                    alerta = "(Stock bajo)" if p.stock < 5 else ""
+                    print(f"{i:<4} {p.nombre:<25} {p.stock:>8} {alerta}")
+                
+                print("\n0- Volver al menú")
+                if input("Elige una opción: ").strip() == "0":
+                    salir = True    
     
     def _seleccionar_producto(self, mensaje="Selecciona el número del producto (0 para cancelar): "):
         productos = self._listar_productos()
