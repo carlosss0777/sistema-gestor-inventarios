@@ -34,11 +34,11 @@ class entradas_salidas_ui:
             match opcion:
                 case 1:
                     limpiar_pantalla()
-                    self.registrar_entrada()
+                    self._registrar_entrada()
                 
                 case 2:
                     limpiar_pantalla()
-                    continue
+                    self._registrar_salida()
                 
                 case 0:
                     print("\nCancelando registro...\n")
@@ -48,35 +48,44 @@ class entradas_salidas_ui:
                 case _:
                     print("\nOpción no válida. Intenta nuevamente...")
                     pausa()
-                    
-    def registrar_entrada(self):
+    
+    def _registrar_movimiento(self, tipo_movimiento):
         limpiar_pantalla()
+    
         print("\n------------------------------------------------------------")
-        print("               -- REGISTRAR ENTRADA --")
+        print(f"        -- REGISTRAR {tipo_movimiento.upper()} --")
         print("------------------------------------------------------------")
-        productos = self.producto_service.get_productos()
-        
-        producto = self.producto_ui._seleccionar_producto("Selecciona el producto a editar (0 para cancelar): ")
+    
+        producto = self.producto_ui._seleccionar_producto("Selecciona el producto (0 para cancelar): ")
         if producto is None:
             pausa()
             return
-        
-        nombre_producto = producto.nombre
-        cantidad = self._pedir_cantidad()
-        tipo_movimiento = "Entrada"
+    
+        cantidad = self._pedir_cantidad(tipo_movimiento, producto.stock)
         fecha_hora = datetime.now()
+    
         self.producto_service.cambiar_stock(producto, cantidad, tipo_movimiento)
-        self.movimiento_service.registrar_movimiento(nombre_producto, tipo_movimiento, cantidad, fecha_hora)
-        
+        self.movimiento_service.registrar_movimiento(producto, tipo_movimiento, cantidad, fecha_hora)
+    
         print("\nMovimiento registrado correctamente.")
         detener()
+                    
+    def _registrar_entrada(self):
+        self._registrar_movimiento("Entrada")
+         
+    def _registrar_salida(self):
+        self._registrar_movimiento("Salida")
         
-    def _pedir_cantidad(self):
+    def _pedir_cantidad(self, tipo_movimiento, stock_actual):
         while True:
-            cantidad = input("Ingresa la cantidad a añadir: ")
-            
+            cantidad = input("Ingresa la cantidad a añadir: " if tipo_movimiento == "Entrada" else "Ingresa la cantidad a restar: "
+            )
+
             try:
-                return self.movimiento_service.validar_cantidad(cantidad)
+                if tipo_movimiento == "Entrada":
+                    return self.movimiento_service.validar_cantidad(cantidad)
+                else:
+                    return self.movimiento_service.validar_salida(cantidad, stock_actual)
             except ValueError as e:
                 mensaje_error(e)
                 pausaLarga()
