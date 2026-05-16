@@ -49,4 +49,21 @@ class ProveedorService:
         )
 
         self.lista_proveedores.append(proveedor)
-    
+
+    # =========================
+    # OBTENER PROVEEDORES
+    # =========================
+
+    def get_proveedores(self):
+        return self.lista_proveedores
+
+    # =========================
+    # BUSCAR PROVEEDOR
+    # =========================
+
+    def buscar_proveedor(self, nombre):
+        for proveedor in self.lista_proveedores:
+            if proveedor.nombre.lower() == nombre.lower():
+                return proveedor
+
+        return None
