@@ -30,4 +30,23 @@ class ProveedorService:
         if "@" not in email or "." not in email:
             raise ValueError("El email no es válido")
 
-        return email.strip()    
+        return email.strip()
+
+    # =========================
+    # REGISTRAR PROVEEDOR
+    # =========================
+
+    def registrar_proveedor(self, nombre, telefono, email):
+
+        nombre = self.validar_nombre(nombre)
+        telefono = self.validar_telefono(telefono)
+        email = self.validar_email(email)
+
+        proveedor = Proveedor(
+            nombre,
+            telefono,
+            email
+        )
+
+        self.lista_proveedores.append(proveedor)
+    
