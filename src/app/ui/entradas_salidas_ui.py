@@ -66,7 +66,7 @@ class entradas_salidas_ui:
         tipo_movimiento = "Entrada"
         fecha_hora = datetime.now()
         self.producto_service.cambiar_stock(producto, cantidad, tipo_movimiento)
-        self.movimiento_service.registrar_movimiento(producto, tipo_movimiento, cantidad, fecha_hora)
+        self.movimiento_service.registrar_movimiento(nombre_producto, tipo_movimiento, cantidad, fecha_hora)
         
         print("\nMovimiento registrado correctamente.")
         detener()
