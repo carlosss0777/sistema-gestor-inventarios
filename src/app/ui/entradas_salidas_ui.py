@@ -8,7 +8,9 @@ class entradas_salidas_ui:
         while True:
             while True:
                 limpiar_pantalla()
-                print("\n== REGISTRO DE ENTRADAS/SALIDAS ==")
+                print("\n---------------------------------------------")
+                print("== REGISTRO DE ENTRADAS/SALIDAS DE STOCK ==")
+                print("---------------------------------------------")
                 print("1- Registrar entrada de stock")
                 print("2- Registrar salida de stock")
                 print("0- Cancelar registro")

@@ -1,7 +1,9 @@
 # Modulo de proveedores
 
-from app.utils.tools import *
 from app.service.proveedor_service import ProveedorService
+from app.utils.validators import *
+from app.utils.tablas import *
+from app.utils.tools import *
 
 class proveedor_ui:
     
@@ -12,7 +14,9 @@ class proveedor_ui:
         while True:
             while True:
                 limpiar_pantalla()
-                print("\n== GESTIÓN DE PROVEEDORES ==")
+                print("\n----------------------------")
+                print("== GESTIÓN DE PROVEEDORES ==")
+                print("----------------------------")
                 print("1- Registrar proveedor")
                 print("2- Mostrar proveedores")
                 print("3- Eliminar proveedor")
@@ -48,17 +52,12 @@ class proveedor_ui:
     # MOSTRAR PROVEEDORES
     # =========================
     def _mostrar_proveedores(self):
-        salir = False
-        while not salir:
-            limpiar_pantalla()
-            print("\n── Listado de proveedores ──")
-            if self._listar_proveedores() is None:
-                pausa()
-                salir = True
-            else:
-                print("\n0- Volver al menú")
-                if input("Elige una opción: ").strip() == "0":
-                    salir = True
+        limpiar_pantalla()
+        print("\n------------------------------------------------------------")
+        print("              -- LISTADO DE PROVEEDORES --")
+        print("------------------------------------------------------------")
+        self._listar_proveedores()
+        detener()
 
     def _listar_proveedores(self):
         proveedores = self.proveedor_service.get_proveedores()
@@ -66,10 +65,8 @@ class proveedor_ui:
             print("\nNo hay proveedores registrados.")
             return None
         
-        print(f"\n{'#':<4} {'Nombre':<25} {'Teléfono':<15} Email")
-        print("─" * 65)
-        for i, p in enumerate(proveedores, 1):
-            print(f"{i:<4} {p.nombre:<25} {p.telefono:<15} {p.email}")
+        tabla = tabla_proveedores(proveedores)
+        print(tabla)
 
         return proveedores
     
@@ -79,24 +76,36 @@ class proveedor_ui:
     # =========================
     def _registrar_proveedor(self):
         limpiar_pantalla()
-        print("\n── Registrar proveedor ──")
+        print("\n------------------------------------------------------------")
+        print("               -- REGISTRAR PROVEEDOR --")
+        print("------------------------------------------------------------")
         
         nombre   = self._pedir_nombre()
         telefono = self._pedir_telefono()
         email    = self._pedir_email()
-        self.proveedor_service.registrar_proveedor(nombre, telefono, email)
-        print("\nProveedor registrado exitosamente.")
-        pausa()
+        
+        try:
+            self.proveedor_service.validar_duplicado(nombre)
+            self.proveedor_service.registrar_proveedor(nombre, telefono, email)
+            print("\nProveedor registrado exitosamente.")
+            pausa()
+            
+        except ValueError as e:
+            mensaje_error(e)
+            pausaLarga()
         
     # =========================
     # ACTUALIZAR PROVEEDORES
     # =========================
     def _actualizar_proveedor(self):
         limpiar_pantalla()
-        print("\n── Actualizar proveedor ──")
+        print("\n------------------------------------------------------------")
+        print("               -- ACTUALIZAR PROVEEDOR --")
+        print("------------------------------------------------------------")
 
         proveedor = self._seleccionar_proveedor("Selecciona el número a actualizar (0 para cancelar): ")
         if proveedor is None:
+            pausa()
             return
         print(f"\nEditando: {proveedor.nombre} | Deja en blanco para conservar el valor actual.\n")
         proveedor.nombre   = self._pedir_nombre(proveedor.nombre)
@@ -111,10 +120,13 @@ class proveedor_ui:
     # =========================
     def _eliminar_proveedor(self):
         limpiar_pantalla()
-        print("\n── Eliminar proveedor ──")
+        print("\n------------------------------------------------------------")
+        print("               -- ELIMINAR PROVEEDOR --")
+        print("------------------------------------------------------------")
 
-        proveedor = self._seleccionar_proveedor("Selecciona el número a actualizar (0 para cancelar): ")
+        proveedor = self._seleccionar_proveedor("Selecciona el número a eliminar (0 para cancelar): ")
         if proveedor is None:
+            pausa()
             return
         
         self.proveedor_service.eliminar_proveedor(proveedor.nombre)
@@ -132,41 +144,46 @@ class proveedor_ui:
 
         while True:
             try:
-                idx = int(input(f"\n{mensaje}")) - 1
+                idx = validar_indice(input(mensaje), len(proveedores))
+                
                 if idx == -1:
                     return None
-                if 0 <= idx < len(proveedores):
+                else:
                     return proveedores[idx]
-                print("Número fuera de rango. Intenta nuevamente.")
-            except ValueError:
-                print("Ingresa un número válido.")
+            
+            except ValueError as e:
+                mensaje_error(e)
+                pausa()
 
     def _pedir_nombre(self, actual=""):
         while True:
-            nombre = input(f"Nombre   [{actual}]: ").strip() if actual else input("Nombre   : ")
+            nombre = input(f"Nombre [{actual}]: ").strip() if actual else input("Nombre: ")
             if actual and not nombre:
                 return actual        # conserva el valor actual
             try:
                 return self.proveedor_service.validar_nombre(nombre)
             except ValueError as e:
-                print(f"{e}. Intenta nuevamente.\n")
+                mensaje_error(e)
+                pausaLarga()
     
     def _pedir_telefono(self, actual=""):
         while True:
-            telefono = input(f"Teléfono [{actual}]: ").strip() if actual else input("Teléfono : ")
+            telefono = input(f"Teléfono [{actual}]: ").strip() if actual else input("Teléfono: ")
             if actual and not telefono:
                 return actual
             try:
                 return self.proveedor_service.validar_telefono(telefono)
             except ValueError as e:
-                print(f"{e}. Intenta nuevamente.\n")
+                mensaje_error(e)
+                pausaLarga()
     
     def _pedir_email(self, actual=""):
         while True:
-            email = input(f"Email    [{actual}]: ").strip() if actual else input("Email    : ")
+            email = input(f"Email [{actual}]: ").strip() if actual else input("Email: ")
             if actual and not email:
                 return actual
             try:
                 return self.proveedor_service.validar_email(email)
             except ValueError as e:
-                print(f"{e}. Intenta nuevamente.\n")
+                mensaje_error(e)
+                pausaLarga()

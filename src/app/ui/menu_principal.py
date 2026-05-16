@@ -1,12 +1,10 @@
 # Menu principal del sistema
 
-from app.ui.producto_ui import producto_ui
-from app.ui.proveedor_ui import proveedor_ui
-from app.ui.movimiento_ui import movimiento_ui
-
 from app.service.proveedor_service import ProveedorService
 from app.service.producto_service import ProductoService
-
+from app.ui.movimiento_ui import movimiento_ui
+from app.ui.proveedor_ui import proveedor_ui
+from app.ui.producto_ui import producto_ui
 from app.utils.tools import *
 
 class menu_principal:
@@ -23,7 +21,9 @@ class menu_principal:
             while True:
                 limpiar_pantalla()
             
-                print("\n== SISTEMA GESTOR DE INVENTARIOS ==")
+                print("\n-----------------------------------")
+                print("== SISTEMA GESTOR DE INVENTARIOS ==")
+                print("-----------------------------------")
                 print("1- Gestión de productos")
                 print("2- Gestión de proveedores")
                 print("3- Gestión de movimientos")
