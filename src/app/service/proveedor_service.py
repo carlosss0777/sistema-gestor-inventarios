@@ -1,4 +1,4 @@
-from app.model.proveedor import proveedor
+from app.model.proveedor import Proveedor
 
 class ProveedorService:
     def __init__(self):
