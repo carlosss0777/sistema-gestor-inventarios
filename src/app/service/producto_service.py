@@ -58,5 +58,22 @@ class ProductoService:
             descripcion
             )
 
-        self.lista_productos.append(producto)       
-        
+        self.lista_productos.append(producto)
+
+    # =========================
+    # OBTENER PRODUCTOS
+    # =========================
+
+    def get_productos(self):
+        return self.lista_productos
+
+    # =========================
+    # BUSCAR PRODUCTO
+    # =========================
+
+    def buscar_producto(self, nombre):
+        for producto in self.lista_productos:
+            if producto.nombre.lower() == nombre.lower():
+                return producto
+
+        return None
