@@ -1,4 +1,5 @@
 from app.model.proveedor import Proveedor
+import re
 
 class ProveedorService:
     def __init__(self):
@@ -16,10 +17,12 @@ class ProveedorService:
 
     def validar_telefono(self, telefono):
         if telefono is None or telefono.strip() == "":
-            raise ValueError("El teléfono no puede estar vacío")
-
-        if not telefono.isdigit():
-            raise ValueError("El teléfono debe contener solo números")
+            raise ValueError("El telefono no puede estar vacio")
+    
+        patron = r"^\d{4}-\d{4}$"
+    
+        if not re.match(patron, telefono):
+            raise ValueError("El telefono debe tener el formato 1234-5678")
 
         return telefono
     
@@ -79,3 +82,12 @@ class ProveedorService:
             raise ValueError("Proveedor no encontrado")
 
         self.lista_proveedores.remove(proveedor)    
+        
+    # =========================
+    # VALIDAR DUPLICADO
+    # =========================
+    
+    def validar_duplicado(self, nombre_proveedor):
+        for proveedor in self.lista_proveedores:
+            if proveedor.nombre.lower() == nombre_proveedor.lower():
+                raise ValueError("Ya se ha registrado un proveedor con el mismo nombre")
