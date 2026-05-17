@@ -4,6 +4,7 @@ import re
 class ProveedorService:
     def __init__(self):
         self.lista_proveedores = []
+        self.datos_prueba()
 
     # =========================
     # Validaciones
@@ -91,3 +92,16 @@ class ProveedorService:
         for proveedor in self.lista_proveedores:
             if proveedor.nombre.lower() == nombre_proveedor.lower():
                 raise ValueError("Ya se ha registrado un proveedor con el mismo nombre")
+            
+    # =========================
+    # DATOS DE PRUEBA
+    # =========================
+    
+    def datos_prueba(self):
+        prov1 = Proveedor("TechSuppier", "2341-8212", "tech@supplier.sv")
+        prov2 = Proveedor("Global Electronics", "2345-7593", "global@electronics.dev")
+        prov3 = Proveedor("CompuWorld", "2953-2946", "world.compu@gmail.com")
+        
+        self.lista_proveedores.append(prov1)
+        self.lista_proveedores.append(prov2)
+        self.lista_proveedores.append(prov3)
