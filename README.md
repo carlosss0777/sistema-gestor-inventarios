@@ -55,7 +55,7 @@ sistema-gestor-inventarios/
 │
 ├── src/                                    # Carpeta principal del sistema
 │   └── app/
-│       ├── model/                          # Modelos de datos
+│       ├── model/                          # Definición de entidades de datos
 │       │   ├── producto.py
 │       │   ├── proveedor.py
 │       │   └── movimiento_inventario.py
@@ -78,7 +78,7 @@ sistema-gestor-inventarios/
 │       │   ├── tablas.py
 │       │   └── validators.py
 │       │
-│       └── main.py
+│       └── main.py                         # Ejecición del sistema
 │
 ├── tests/                                  # Pruebas unitarias
 ├── .gitignore                              # Archivos y directorios ignorados por Git
@@ -87,15 +87,14 @@ sistema-gestor-inventarios/
 
 ## Tecnologías utilizadas
 - **Python 3.x**
-- **pandas** -- manejo de datos para generar tablas
-- **tabulate** -- formateo visual de tablas en consola
-- **Git y GitHub** -- control de versiones
-- **Visual Studio Code** -- entorno de desarrollo
+- **tabulate** - formateo visual de tablas en consola
+- **Git y GitHub** - control de versiones
+- **Visual Studio Code** - entorno de desarrollo
 
 ## Cómo ejecutar
 **1-** Instalar dependencias
 ```
-pip install pandas tabulate
+pip install tabulate
 ```
 
 **2-** Clonar el repositorio
