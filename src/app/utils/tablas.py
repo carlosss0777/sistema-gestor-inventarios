@@ -1,7 +1,6 @@
 # Formato de tablas
 
 from tabulate import tabulate
-import pandas as pd
 
 # Tabla para los productos y sus datos
 def tabla_productos(lista_productos):
@@ -16,10 +15,14 @@ def tabla_productos(lista_productos):
             "Descripcion": producto.descripcion
         })
         
-    df = pd.DataFrame(productos_data)
-    df.index += 1
+    tabla = tabulate(productos_data, 
+                     headers='keys', 
+                     tablefmt='fancy_grid', 
+                     stralign='center', 
+                     numalign='center',
+                     showindex=range(1, len(productos_data)+1)
+                    )
     
-    tabla = tabulate(df, headers='keys', tablefmt='fancy_grid', stralign='center', numalign='center')
     return tabla
 
 # Tabla para ver el stock de los productos
@@ -34,11 +37,15 @@ def tabla_stock(lista_productos):
             "Stock": producto.stock,
             "Nivel de stock": estado
         })
-        
-    df = pd.DataFrame(productos_data)
-    df.index += 1
     
-    tabla = tabulate(df, headers='keys', tablefmt='fancy_grid', stralign='center', numalign='center')
+    tabla = tabulate(productos_data, 
+                     headers='keys', 
+                     tablefmt='fancy_grid', 
+                     stralign='center', 
+                     numalign='center',
+                     showindex=range(1, len(productos_data)+1)
+                    )
+    
     return tabla
 
 # Tabla para ver proveerdores y sus datos
@@ -51,11 +58,15 @@ def tabla_proveedores(lista_proveedores):
             "Telefono": proveedor.telefono,
             "Email": proveedor.email
         })
-        
-    df = pd.DataFrame(proveedores_data)
-    df.index += 1
     
-    tabla = tabulate(df, headers='keys', tablefmt='fancy_grid', stralign='center', numalign='center')
+    tabla = tabulate(proveedores_data,
+                     headers='keys', 
+                     tablefmt='fancy_grid', 
+                     stralign='center', 
+                     numalign='center',
+                     showindex=range(1, len(proveedores_data)+1)
+                    )
+    
     return tabla
 
 # Tabla para ver los movimientos de stock
@@ -73,8 +84,12 @@ def tabla_movimientos(lista_movimientos):
             "Hora": fecha.strftime('%H:%M')
         })
         
-    df = pd.DataFrame(movimientos_data)
-    df.index += 1
+    tabla = tabulate(movimientos_data,
+                     headers='keys', 
+                     tablefmt='fancy_grid', 
+                     stralign='center', 
+                     numalign='center',
+                     showindex=range(1, len(movimientos_data)+1)
+                    )
     
-    tabla = tabulate(df, headers='keys', tablefmt='fancy_grid', stralign='center', numalign='center')
     return tabla
