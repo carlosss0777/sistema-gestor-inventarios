@@ -16,3 +16,6 @@ pythonenv*
 .idea/
 *.swp
 *.swo
+
+# Datos generados en tiempo de ejecución, no son parte del código
+data/
