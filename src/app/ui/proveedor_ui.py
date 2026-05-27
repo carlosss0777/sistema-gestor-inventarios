@@ -108,9 +108,11 @@ class proveedor_ui:
             pausa()
             return
         print(f"\nEditando: {proveedor.nombre} | Deja en blanco para conservar el valor actual.\n")
-        proveedor.nombre   = self._pedir_nombre(proveedor.nombre)
-        proveedor.telefono = self._pedir_telefono(proveedor.telefono)
-        proveedor.email    = self._pedir_email(proveedor.email)
+        nombre   = self._pedir_nombre(proveedor.nombre)
+        telefono = self._pedir_telefono(proveedor.telefono)
+        email    = self._pedir_email(proveedor.email)
+        
+        self.proveedor_service.actualizar_proveedor(proveedor, nombre, telefono, email)
 
         print("\nProveedor actualizado correctamente.")
         pausa()
