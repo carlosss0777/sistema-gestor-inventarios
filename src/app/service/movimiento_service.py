@@ -1,11 +1,12 @@
 # Validaciones para los movimientos
 
 from app.model.movimiento_inventario import MovimientoInventario
-
+from app.repository.movimiento_repository import movimiento_repository
 from datetime import datetime
 
 class movimiento_service:
-    def __init__(self):
+    def __init__(self, repository: movimiento_repository):
+        self._repo = repository
         self.lista_movimientos = []
         
     # validacion de la cantidad
@@ -39,6 +40,8 @@ class movimiento_service:
         movimiento = MovimientoInventario(nombre_producto, tipo_movimiento, cantidad, fecha_hora)
         
         self.lista_movimientos.append(movimiento)
+        self._repo.guardar(self.lista_movimientos)
+        return movimiento
         
     def get_movimientos(self):
         return self.lista_movimientos
