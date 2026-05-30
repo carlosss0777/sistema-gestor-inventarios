@@ -19,3 +19,14 @@ pythonenv*
 
 # Datos generados en tiempo de ejecución, no son parte del código
 data/
+
+# Testing
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+test-results/
+coverage.xml
+*.log
