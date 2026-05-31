@@ -151,3 +151,12 @@ class ProductoService:
             nuevo_stock = stock_actual - cantidad
             
             producto.stock = nuevo_stock
+            
+        self._repo.guardar(self.lista_productos)
+            
+    # =========================
+    # Sincronizar JSON
+    # =========================
+    
+    def sincronizar_json(self):
+        self._repo.guardar(self.lista_productos)

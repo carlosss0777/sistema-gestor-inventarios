@@ -14,8 +14,13 @@ class movimiento_repository:
         datos = []
         
         for movimiento in lista_movimientos:
+            if isinstance(movimiento.nombre_producto, str):
+                nombre = movimiento.nombre_producto
+            else:
+                nombre = movimiento.nombre_producto.nombre
+                
             datos.append({
-                "nombre_producto": movimiento.nombre_producto.nombre,
+                "nombre_producto": nombre,
                 "tipo_movimiento": movimiento.tipo_movimiento,
                 "cantidad": movimiento.cantidad,
                 "fecha": movimiento.fecha.strftime("%d-%m-%Y %H:%M:%S")

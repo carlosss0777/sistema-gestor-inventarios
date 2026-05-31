@@ -1,14 +1,16 @@
 # Modulo de proveedores
 
 from app.service.proveedor_service import ProveedorService
+from app.service.producto_service import ProductoService
 from app.utils.validators import *
 from app.utils.tablas import *
 from app.utils.tools import *
 
 class proveedor_ui:
     
-    def __init__(self, proveedor_service: ProveedorService):
+    def __init__(self, proveedor_service: ProveedorService, producto_service: ProductoService):
         self.proveedor_service = proveedor_service
+        self.producto_service = producto_service
 
     def menu_proveedor(self):
         while True:
@@ -112,7 +114,7 @@ class proveedor_ui:
         telefono = self._pedir_telefono(proveedor.telefono)
         email    = self._pedir_email(proveedor.email)
         
-        self.proveedor_service.actualizar_proveedor(proveedor, nombre, telefono, email)
+        self.proveedor_service.actualizar_proveedor(proveedor, nombre, telefono, email, self.producto_service)
 
         print("\nProveedor actualizado correctamente.")
         pausa()

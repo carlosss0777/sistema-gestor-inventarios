@@ -7,7 +7,7 @@ from datetime import datetime
 class movimiento_service:
     def __init__(self, repository: movimiento_repository):
         self._repo = repository
-        self.lista_movimientos = []
+        self.lista_movimientos: list[MovimientoInventario] = self._repo.cargar()
         
     # validacion de la cantidad
     def validar_cantidad(self, cantidad):

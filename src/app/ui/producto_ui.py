@@ -149,7 +149,8 @@ class producto_ui:
             pausa()
             return
         print(f"\nEditando: {producto.nombre} | Deja en blanco para conservar el valor actual.\n")        
-        producto.precio      = self._pedir_precio(producto.precio)        
+        precio      = self._pedir_precio(producto.precio)
+        self.producto_service.actualizar_precio(producto, precio)       
         print("\nProducto actualizado correctamente.")
         pausa()
 

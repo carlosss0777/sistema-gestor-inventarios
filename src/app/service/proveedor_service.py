@@ -110,7 +110,7 @@ class ProveedorService:
     # =========================
     # Actualizar proveedor
     # =========================
-    def actualizar_proveedor(self, proveedor:Proveedor, nombre, telefono, email):
+    def actualizar_proveedor(self, proveedor:Proveedor, nombre, telefono, email, producto_service=None):
         nuevo_nombre = self.validar_nombre(nombre)
         nuevo_telefono = self.validar_telefono(telefono)
         nuevo_email = self.validar_email(email)
@@ -121,6 +121,9 @@ class ProveedorService:
         
         self._repo.guardar(self.lista_proveedores)
         
+        if producto_service:
+            producto_service.sincronizar_json()
+            
         return proveedor
      
     """       

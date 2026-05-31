@@ -20,7 +20,7 @@ class menu_principal:
         self.producto_service  = ProductoService(self.producto_repository, self.proveedor_service.get_all())
         self.movimiento_service = movimiento_service(self.movimiento_repository)
 
-        self.proveedorUI = proveedor_ui(self.proveedor_service)
+        self.proveedorUI = proveedor_ui(self.proveedor_service, self.producto_service)
         self.productoUI = producto_ui(self.producto_service, self.proveedor_service,self.proveedorUI)
         self.movimientoUI = movimiento_ui(self.movimiento_service, self.producto_service, self.productoUI)
         
