@@ -4,6 +4,15 @@ class Proveedor:
         self._nombre = nombre_proveedor
         self._telefono = telefono_proveedor
         self._email = email_proveedor
+        self._activo = True
+        
+    @property
+    def activo(self):
+        return self._activo
+    
+    @activo.setter
+    def activo(self, valor):
+        self._activo = valor
 
     # Nombre
     @property

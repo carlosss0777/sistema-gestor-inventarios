@@ -1,8 +1,10 @@
+from app.repository.producto_repository import producto_repository
 from app.model.producto import Producto
 
 class ProductoService:
-    def __init__(self):
-        self.lista_productos = []
+    def __init__(self, repository: producto_repository, lista_proveedores):
+        self._repo = repository
+        self.lista_productos: list[Producto] = self._repo.cargar(lista_proveedores)
     
     # =========================
     # VALIDACIONES
@@ -59,6 +61,10 @@ class ProductoService:
             )
 
         self.lista_productos.append(producto)
+        
+        self._repo.guardar(self.lista_productos)
+        
+        return producto
 
     # =========================
     # OBTENER PRODUCTOS
@@ -89,6 +95,7 @@ class ProductoService:
             raise ValueError("Producto no encontrado")
 
         self.lista_productos.remove(producto)
+        self._repo.guardar(self.lista_productos)
         
     # =========================
     # Validar duplicado
@@ -98,6 +105,33 @@ class ProductoService:
         for producto in self.lista_productos:
             if producto.nombre.lower() == nombre_producto.lower() and producto.proveedor == proveedor:
                 raise ValueError("Ya se ha registrado el mismo producto con el mismo proveedor")
+            
+    # =========================
+    # Actualizar producto
+    # =========================
+    def actualizar_producto(self, producto:Producto, nombre, precio, descripcion, proveedor):
+        nuevo_nombre = self.validar_nombre(nombre)
+        nuevo_precio = self.validar_precio(precio)
+        nueva_descripcion = self.validar_descripcion(descripcion)
+        
+        producto.nombre = nuevo_nombre
+        producto.precio = nuevo_precio
+        producto.descripcion = nueva_descripcion
+        producto.proveedor = proveedor
+        
+        self._repo.guardar(self.lista_productos)
+        
+        return producto
+    
+    # =========================
+    # Actualizar precio
+    # =========================
+    def actualizar_precio(self, producto:Producto, precio):
+        nuevo_precio = self.validar_precio(precio)
+        
+        producto.precio = nuevo_precio
+        
+        self._repo.guardar(self.lista_productos)
             
     # =========================
     # Disminuir o aumentar stock
@@ -117,3 +151,12 @@ class ProductoService:
             nuevo_stock = stock_actual - cantidad
             
             producto.stock = nuevo_stock
+            
+        self._repo.guardar(self.lista_productos)
+            
+    # =========================
+    # Sincronizar JSON
+    # =========================
+    
+    def sincronizar_json(self):
+        self._repo.guardar(self.lista_productos)

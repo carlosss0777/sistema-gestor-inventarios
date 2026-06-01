@@ -1,5 +1,8 @@
 # Menu principal del sistema
 
+from app.repository.movimiento_repository import movimiento_repository
+from app.repository.proveedor_repository import proveedor_repository
+from app.repository.producto_repository import producto_repository
 from app.service.movimiento_service import movimiento_service
 from app.service.proveedor_service import ProveedorService
 from app.service.producto_service import ProductoService
@@ -10,11 +13,14 @@ from app.utils.tools import *
 
 class menu_principal:
     def __init__(self):
-        self.proveedor_service  = ProveedorService()
-        self.producto_service  = ProductoService()
-        self.movimiento_service = movimiento_service()
+        self.movimiento_repository = movimiento_repository()
+        self.producto_repository = producto_repository()
+        self.proveedor_repository = proveedor_repository()
+        self.proveedor_service  = ProveedorService(self.proveedor_repository)
+        self.producto_service  = ProductoService(self.producto_repository, self.proveedor_service.get_all())
+        self.movimiento_service = movimiento_service(self.movimiento_repository)
 
-        self.proveedorUI = proveedor_ui(self.proveedor_service)
+        self.proveedorUI = proveedor_ui(self.proveedor_service, self.producto_service)
         self.productoUI = producto_ui(self.producto_service, self.proveedor_service,self.proveedorUI)
         self.movimientoUI = movimiento_ui(self.movimiento_service, self.producto_service, self.productoUI)
         

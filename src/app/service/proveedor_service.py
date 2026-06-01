@@ -1,10 +1,12 @@
+from app.repository.proveedor_repository import proveedor_repository
 from app.model.proveedor import Proveedor
 import re
 
 class ProveedorService:
-    def __init__(self):
-        self.lista_proveedores = []
-        self.datos_prueba()
+    def __init__(self, repository: proveedor_repository):
+        self._repo = repository
+        self.lista_proveedores: list[Proveedor] = self._repo.cargar()
+        # self.datos_prueba()
 
     # =========================
     # Validaciones
@@ -53,13 +55,24 @@ class ProveedorService:
         )
 
         self.lista_proveedores.append(proveedor)
+        
+        self._repo.guardar(self.lista_proveedores)
+        
+        return proveedor
 
     # =========================
     # OBTENER PROVEEDORES
     # =========================
+    def get_all(self):
+        return self.lista_proveedores
 
     def get_proveedores(self):
-        return self.lista_proveedores
+        proveedores_activos = []
+        for proveedor in self.lista_proveedores:
+            if proveedor.activo:
+                proveedores_activos.append(proveedor)
+                
+        return proveedores_activos
 
     # =========================
     # BUSCAR PROVEEDOR
@@ -82,7 +95,8 @@ class ProveedorService:
         if proveedor is None:
             raise ValueError("Proveedor no encontrado")
 
-        self.lista_proveedores.remove(proveedor)    
+        proveedor.activo = False
+        self._repo.guardar(self.lista_proveedores)
         
     # =========================
     # VALIDAR DUPLICADO
@@ -92,7 +106,27 @@ class ProveedorService:
         for proveedor in self.lista_proveedores:
             if proveedor.nombre.lower() == nombre_proveedor.lower():
                 raise ValueError("Ya se ha registrado un proveedor con el mismo nombre")
+          
+    # =========================
+    # Actualizar proveedor
+    # =========================
+    def actualizar_proveedor(self, proveedor:Proveedor, nombre, telefono, email, producto_service=None):
+        nuevo_nombre = self.validar_nombre(nombre)
+        nuevo_telefono = self.validar_telefono(telefono)
+        nuevo_email = self.validar_email(email)
+        
+        proveedor.nombre = nuevo_nombre
+        proveedor.telefono = nuevo_telefono
+        proveedor.email = nuevo_email
+        
+        self._repo.guardar(self.lista_proveedores)
+        
+        if producto_service:
+            producto_service.sincronizar_json()
             
+        return proveedor
+     
+    """       
     # =========================
     # DATOS DE PRUEBA
     # =========================
@@ -105,3 +139,4 @@ class ProveedorService:
         self.lista_proveedores.append(prov1)
         self.lista_proveedores.append(prov2)
         self.lista_proveedores.append(prov3)
+    """

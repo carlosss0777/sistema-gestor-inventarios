@@ -127,10 +127,12 @@ class producto_ui:
             pausa()
             return
         print(f"\nEditando: {producto.nombre} | Deja en blanco para conservar el valor actual.\n")
-        producto.nombre      = self._pedir_nombre(producto.nombre)
-        producto.precio      = self._pedir_precio(producto.precio)
-        producto.descripcion = self._pedir_descripcion(producto.descripcion)
-        producto.proveedor   = self._pedir_proveedor(producto.proveedor)
+        nombre      = self._pedir_nombre(producto.nombre)
+        precio      = self._pedir_precio(producto.precio)
+        descripcion = self._pedir_descripcion(producto.descripcion)
+        proveedor   = self._pedir_proveedor(producto.proveedor)
+        
+        self.producto_service.actualizar_producto(producto, nombre, precio, descripcion, proveedor)
         print("\nProducto actualizado correctamente.")
         pausa()
 
@@ -147,7 +149,8 @@ class producto_ui:
             pausa()
             return
         print(f"\nEditando: {producto.nombre} | Deja en blanco para conservar el valor actual.\n")        
-        producto.precio      = self._pedir_precio(producto.precio)        
+        precio      = self._pedir_precio(producto.precio)
+        self.producto_service.actualizar_precio(producto, precio)       
         print("\nProducto actualizado correctamente.")
         pausa()
 
