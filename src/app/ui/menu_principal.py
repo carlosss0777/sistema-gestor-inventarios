@@ -13,6 +13,9 @@ from app.utils.tools import *
 
 class menu_principal:
     def __init__(self):
+        """
+        Constructor del menú principal. Inicializa los repositorios, servicios y UIs para productos, proveedores y movimientos.
+        """
         self.movimiento_repository = movimiento_repository()
         self.producto_repository = producto_repository()
         self.proveedor_repository = proveedor_repository()
@@ -20,11 +23,17 @@ class menu_principal:
         self.producto_service  = ProductoService(self.producto_repository, self.proveedor_service.get_all())
         self.movimiento_service = movimiento_service(self.movimiento_repository)
 
+        """
+        Inicializa las interfaces de usuario para proveedores, productos y movimientos, pasando los servicios correspondientes para que puedan interactuar con la lógica de negocio.
+        """
         self.proveedorUI = proveedor_ui(self.proveedor_service, self.producto_service)
         self.productoUI = producto_ui(self.producto_service, self.proveedor_service,self.proveedorUI)
         self.movimientoUI = movimiento_ui(self.movimiento_service, self.producto_service, self.productoUI)
         
     def execute(self):
+        """
+        Ejecuta el menú principal del sistema. Muestra un menú con opciones para gestionar productos, proveedores y movimientos, y maneja la navegación entre estas opciones. Permite al usuario salir del sistema cuando lo desee.
+        """
         while True:
             while True:
                 limpiar_pantalla()

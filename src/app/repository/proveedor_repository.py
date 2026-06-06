@@ -7,7 +7,16 @@ RUTA_ARCHIVO = "data/proveedores.json"
 
 class proveedor_repository:
     
+    # Guardar la lista de proveedores en el JSON
     def guardar(self, lista_proveedores: list[Proveedor]):
+        """Guarda la lista de proveedores en un archivo JSON. Cada proveedor se guarda como un diccionario con sus atributos.
+
+        Args:
+            lista_proveedores (list[Proveedor]): Lista de objetos Proveedor a guardar
+
+        Returns:
+            None
+        """
         os.makedirs("data", exist_ok=True)
         
         datos = []
@@ -23,8 +32,13 @@ class proveedor_repository:
         with open(RUTA_ARCHIVO, "w", encoding="utf-8") as f:
             json.dump(datos, f, indent=4, ensure_ascii=False)
     
-    # retorna lista de objetos proveedor
+    # Cargar la lista de proveedores desde el JSON
     def cargar(self) -> list[Proveedor]:
+        """Carga la lista de proveedores desde un archivo JSON. Cada proveedor se convierte en un objeto Proveedor.
+
+        Returns:
+            list[Proveedor]: Lista de objetos Proveedor cargados desde el archivo JSON
+        """
         if not os.path.exists(RUTA_ARCHIVO):
             return []
         

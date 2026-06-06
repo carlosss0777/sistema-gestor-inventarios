@@ -8,6 +8,14 @@ from app.utils.tools import *
 
 class entradas_salidas_ui:
     def __init__(self, movimiento_service: movimiento_service, producto_service: ProductoService, producto_ui: producto_ui):
+        """
+        Clase encargada de gestionar el registro de entradas y salidas de stock.
+
+        Args:
+            movimiento_service (movimiento_service): Servicio para gestionar movimientos de stock.
+            producto_service (ProductoService): Servicio para gestionar productos.
+            producto_ui (producto_ui): Interfaz de usuario para seleccionar productos. 
+        """
         self.movimiento_service = movimiento_service
         self.producto_service = producto_service
         self.producto_ui = producto_ui
@@ -53,6 +61,12 @@ class entradas_salidas_ui:
     # METODO PRINCIPAL PARA REGISTRO DE MOVIMIENTOS
     # =============================================
     def _registrar_movimiento(self, tipo_movimiento):
+        """
+        Metodo principal para registrar un movimiento de stock (entrada o salida).
+
+        Args:
+            tipo_movimiento (str): Tipo de movimiento ("Entrada" o "Salida").
+        """
         limpiar_pantalla()
     
         print("\n------------------------------------------------------------")
@@ -77,18 +91,34 @@ class entradas_salidas_ui:
     # REGISTRAR ENTRADA
     # =========================      
     def _registrar_entrada(self):
+        """
+        Metodo para registrar una entrada de stock. Llama al método principal de registro de movimientos con el tipo "Entrada".
+        """
         self._registrar_movimiento("Entrada")
          
     # =========================
     # REGISTRAR SALIDA
     # =========================
     def _registrar_salida(self):
+        """
+        Metodo para registrar una salida de stock. Llama al método principal de registro de movimientos con el tipo "Salida".
+        """
         self._registrar_movimiento("Salida")
         
     # ======================================
     # PEDIR DE CANTIDAD A AUMENTAR/DISMINUIR
     # ======================================
     def _pedir_cantidad(self, tipo_movimiento, stock_actual):
+        """
+        Pide al usuario la cantidad a aumentar o disminuir del stock, dependiendo del tipo de movimiento. Valida que la cantidad sea un número positivo y, en caso de salida, que no supere el stock actual.
+
+        Args:
+            tipo_movimiento (str): Tipo de movimiento ("Entrada" o "Salida").
+            stock_actual (int): Stock actual del producto (necesario para validar salidas).
+
+        Returns:
+            int: La cantidad validada.
+        """
         while True:
             cantidad = input("Ingresa la cantidad a añadir: " if tipo_movimiento == "Entrada" else "Ingresa la cantidad a restar: "
             )

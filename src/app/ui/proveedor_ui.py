@@ -9,6 +9,13 @@ from app.utils.tools import *
 class proveedor_ui:
     
     def __init__(self, proveedor_service: ProveedorService, producto_service: ProductoService):
+        """
+        Constructor de la clase proveedor_ui.
+
+        Args:
+            proveedor_service (ProveedorService): Instancia del servicio de proveedores.
+            producto_service (ProductoService): Instancia del servicio de productos.
+        """
         self.proveedor_service = proveedor_service
         self.producto_service = producto_service
 
@@ -54,6 +61,9 @@ class proveedor_ui:
     # MOSTRAR PROVEEDORES
     # =========================
     def _mostrar_proveedores(self):
+        """
+        Muestra la lista de proveedores registrados en el sistema. Si no hay proveedores, muestra un mensaje indicando que no hay registros. Utiliza una tabla para presentar la información de manera clara y ordenada.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("              -- LISTADO DE PROVEEDORES --")
@@ -62,6 +72,9 @@ class proveedor_ui:
         detener()
 
     def _listar_proveedores(self):
+        """
+        Obtiene y muestra la lista de proveedores registrados en el sistema. Si no hay proveedores, muestra un mensaje indicando que no hay registros.
+        """
         proveedores = self.proveedor_service.get_proveedores()
         if not proveedores:
             print("\nNo hay proveedores registrados.")
@@ -77,6 +90,9 @@ class proveedor_ui:
     # REGISTRAR PROVEEDORES
     # =========================
     def _registrar_proveedor(self):
+        """
+        Registra un nuevo proveedor en el sistema. Solicita al usuario ingresar el nombre, teléfono y correo electrónico del proveedor. Antes de registrar, valida que el nombre no esté duplicado y que los datos ingresados sean correctos. Si el registro es exitoso, muestra un mensaje de confirmación; si hay errores, muestra mensajes de error correspondientes.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("               -- REGISTRAR PROVEEDOR --")
@@ -100,6 +116,9 @@ class proveedor_ui:
     # ACTUALIZAR PROVEEDORES
     # =========================
     def _actualizar_proveedor(self):
+        """
+        Actualiza los datos de un proveedor existente en el sistema. Primero, muestra la lista de proveedores para que el usuario seleccione cuál desea actualizar. Luego, solicita al usuario ingresar los nuevos datos (nombre, teléfono y correo electrónico) para el proveedor seleccionado. Si el usuario deja algún campo en blanco, se conservará el valor actual. Antes de actualizar, valida que los datos ingresados sean correctos y que el nuevo nombre no esté duplicado (si se cambia). Si la actualización es exitosa, muestra un mensaje de confirmación; si hay errores, muestra mensajes de error correspondientes.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("               -- ACTUALIZAR PROVEEDOR --")
@@ -123,6 +142,9 @@ class proveedor_ui:
     # ELIMINAR PROVEEDORES
     # =========================
     def _eliminar_proveedor(self):
+        """
+        Elimina un proveedor del sistema. Primero, muestra la lista de proveedores para que el usuario seleccione cuál desea eliminar. Luego, solicita confirmación antes de proceder con la eliminación. Si la eliminación es exitosa, muestra un mensaje de confirmación; si hay errores, muestra mensajes de error correspondientes.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("               -- ELIMINAR PROVEEDOR --")
@@ -141,6 +163,9 @@ class proveedor_ui:
 
 
     def _seleccionar_proveedor(self, mensaje="Selecciona el número del proveedor (0 para cancelar): "):
+        """
+        Selecciona un proveedor de la lista mostrada. Muestra la lista de proveedores y solicita al usuario ingresar el número correspondiente al proveedor que desea seleccionar. Si el usuario ingresa 0, se cancela la selección y se retorna None. Si el usuario ingresa un número inválido o fuera del rango, muestra un mensaje de error y solicita nuevamente la entrada.
+        """
         proveedores = self._listar_proveedores()
         if proveedores is None:
             pausa()
@@ -160,6 +185,9 @@ class proveedor_ui:
                 pausa()
 
     def _pedir_nombre(self, actual=""):
+        """
+        Pide al usuario ingresar el nombre de un proveedor. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida el nombre ingresado utilizando el servicio de proveedor. Si el nombre es válido, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             nombre = input(f"Nombre [{actual}]: ").strip() if actual else input("Nombre: ")
             if actual and not nombre:
@@ -171,6 +199,9 @@ class proveedor_ui:
                 pausaLarga()
     
     def _pedir_telefono(self, actual=""):
+        """
+        Pide al usuario ingresar el teléfono de un proveedor. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida el teléfono ingresado utilizando el servicio de proveedor. Si el teléfono es válido, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             telefono = input(f"Teléfono [{actual}]: ").strip() if actual else input("Teléfono: ")
             if actual and not telefono:
@@ -182,6 +213,9 @@ class proveedor_ui:
                 pausaLarga()
     
     def _pedir_email(self, actual=""):
+        """
+        Pide al usuario ingresar el correo electrónico de un proveedor. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida el correo electrónico ingresado utilizando el servicio de proveedor. Si el correo electrónico es válido, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             email = input(f"Email [{actual}]: ").strip() if actual else input("Email: ")
             if actual and not email:
