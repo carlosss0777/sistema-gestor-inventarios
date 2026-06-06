@@ -7,6 +7,14 @@ from app.utils.tools import *
 
 class producto_ui:
     def __init__(self, producto_service: ProductoService, proveedor_service: ProveedorService, proveedor_ui:proveedor_ui):
+        """
+        Constructor de la clase producto_ui.
+
+        Args:
+            producto_service (ProductoService): Servicio para gestionar productos.
+            proveedor_service (ProveedorService): Servicio para gestionar proveedores.
+            proveedor_ui (proveedor_ui): Interfaz de usuario para proveedores.
+        """
         self.producto_service  = producto_service
         self.proveedor_service = proveedor_service
         self.proveedor_ui      = proveedor_ui
@@ -66,6 +74,9 @@ class producto_ui:
     # MOSTRAR PRODUCTOS
     # =========================
     def _mostrar_productos(self):
+        """
+        Muestra el listado de productos registrados en el sistema. Si no hay productos, muestra un mensaje indicando que no hay productos registrados.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("                -- LISTADO DE PRODUCTOS --")
@@ -74,6 +85,9 @@ class producto_ui:
         detener()
     
     def _listar_productos(self):
+        """
+        Lista los productos registrados en el sistema y los muestra en formato de tabla. Si no hay productos, muestra un mensaje indicando que no hay productos registrados.
+        """
         productos = self.producto_service.get_productos()
         if not productos:
             print("\nNo hay productos registrados.")
@@ -88,6 +102,9 @@ class producto_ui:
     # REGISTRAR PRODUCTOS
     # =========================
     def _registrar_producto(self):
+        """
+        Registra un nuevo producto en el sistema. Solicita al usuario ingresar el nombre, stock, precio, descripción y proveedor del producto. Valida los datos ingresados y verifica que no exista un producto con el mismo nombre y proveedor antes de registrarlo. Si el registro es exitoso, muestra un mensaje de confirmación. Si ocurre un error durante la validación o el registro, muestra un mensaje de error.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("                 -- REGISTRAR PRODUCTO --")
@@ -118,6 +135,9 @@ class producto_ui:
     # ACTUALIZAR PRODUCTOS
     # =========================
     def _actualizar_producto(self):
+        """
+        Actualiza la información de un producto registrado en el sistema. Permite al usuario seleccionar un producto de la lista y modificar su nombre, precio, descripción y proveedor. Valida los datos ingresados y verifica que no exista otro producto con el mismo nombre y proveedor antes de actualizarlo. Si la actualización es exitosa, muestra un mensaje de confirmación. Si ocurre un error durante la validación o la actualización, muestra un mensaje de error.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("                 -- ACTUALIZAR PRODUCTO --")
@@ -140,6 +160,9 @@ class producto_ui:
     # ACTUALIZAR PRECIO DE PRODUCTOS
     # =========================
     def _actualizar_precio_producto(self):
+        """
+        Actualiza el precio de un producto registrado en el sistema. Permite al usuario seleccionar un producto de la lista y modificar su precio. Valida los datos ingresados y verifica que el precio sea válido antes de actualizarlo. Si la actualización es exitosa, muestra un mensaje de confirmación. Si ocurre un error durante la validación o la actualización, muestra un mensaje de error.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("             -- ACTUALIZAR PRECIO DE PRODUCTO --")
@@ -158,6 +181,9 @@ class producto_ui:
     # ELIMINAR PRODUCTOS
     # =========================
     def _eliminar_productos(self):
+        """
+        Elimina un producto registrado en el sistema. Permite al usuario seleccionar un producto de la lista para eliminarlo. Si la eliminación es exitosa, muestra un mensaje de confirmación. Si ocurre un error durante la eliminación, muestra un mensaje de error.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("             -- ELIMINAR PRODUCTOS --")
@@ -177,6 +203,9 @@ class producto_ui:
     # MOSTRAR STOCKS DE PRODUCTOS
     # =========================
     def _mostrar_stock(self):
+        """
+        Muestra el stock actual de los productos registrados en el sistema. Si no hay productos registrados, muestra un mensaje indicando que no hay productos registrados. Si hay productos, muestra una tabla con el nombre del producto, su proveedor y la cantidad en stock.
+        """
         limpiar_pantalla()
         print("\n------------------------------------------------------------")
         print("                 -- STOCK ACTUAL --")
@@ -192,6 +221,9 @@ class producto_ui:
             detener()
     
     def _seleccionar_producto(self, mensaje="Selecciona el número del producto (0 para cancelar): "):
+        """
+        Selecciona un producto de la lista de productos registrados en el sistema. Muestra una tabla con los productos disponibles y solicita al usuario ingresar el número correspondiente al producto que desea seleccionar. Valida la entrada del usuario para asegurarse de que sea un número válido dentro del rango de productos disponibles. Si el usuario ingresa 0, se cancela la selección y se retorna None. Si la selección es exitosa, se retorna el producto seleccionado. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         productos = self._listar_productos()
         if productos is None:
             pausa()
@@ -211,6 +243,9 @@ class producto_ui:
                 pausa()
     
     def _pedir_nombre(self, actual=""):
+        """
+        Pide al usuario ingresar el nombre de un producto. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida el nombre ingresado utilizando el servicio de producto. Si el nombre es válido, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             nombre = input(f"Nombre [{actual}]: ").strip() if actual else input("Nombre: ")
             if actual and not nombre:
@@ -222,6 +257,9 @@ class producto_ui:
                 pausaLarga()
     
     def _pedir_stock(self, actual=""):
+        """
+        Pide al usuario ingresar la cantidad de stock de un producto. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida el stock ingresado utilizando el servicio de producto. Si el stock es válido, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             stock = input("Stock: ")
             
@@ -232,6 +270,9 @@ class producto_ui:
                 pausaLarga()
     
     def _pedir_precio(self, actual=""):
+        """
+        Pide al usuario ingresar el precio de un producto. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida el precio ingresado utilizando el servicio de producto. Si el precio es válido, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             precio = input(f"Precio [${actual}]: $").strip() if actual else input("Precio: $")
             if actual and not precio:
@@ -243,6 +284,9 @@ class producto_ui:
                 pausaLarga()
                 
     def _pedir_descripcion(self, actual=""):
+        """
+        Pide al usuario ingresar la descripción de un producto. Si se proporciona un valor actual, muestra el valor actual entre corchetes y permite al usuario dejarlo en blanco para conservarlo. Valida la descripción ingresada utilizando el servicio de producto. Si la descripción es válida, lo retorna. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             descripcion = input(f"Descripción [{actual}]: ").strip() if actual else input("Descripción: ")
             if actual and not descripcion:
@@ -254,6 +298,9 @@ class producto_ui:
                 pausaLarga()
     
     def _pedir_proveedor(self, actual=None):
+        """
+        Pide al usuario seleccionar un proveedor para un producto. Muestra una lista de proveedores registrados en el sistema y permite al usuario seleccionar uno de ellos. Si no hay proveedores registrados, ofrece la opción de registrar uno nuevo. Si se proporciona un valor actual, muestra el nombre del proveedor actual y permite al usuario conservarlo seleccionando 0. Valida la selección del proveedor y retorna el proveedor seleccionado. Si ocurre un error durante la validación, muestra un mensaje de error y solicita al usuario que intente nuevamente.
+        """
         while True:
             proveedores = self.proveedor_service.get_proveedores()
             if not proveedores:

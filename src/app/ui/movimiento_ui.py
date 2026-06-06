@@ -9,6 +9,14 @@ from app.utils.tools import *
 
 class movimiento_ui:
     def __init__(self, movimiento_service: movimiento_service, producto_service: ProductoService, producto_ui: producto_ui):
+        """
+        Constructor de la clase movimiento_ui.
+
+        Args:
+            movimiento_service (movimiento_service): Servicio para gestionar movimientos de stock.
+            producto_service (ProductoService): Servicio para gestionar productos.
+            producto_ui (producto_ui): Interfaz de usuario para gestionar productos.
+        """
         self.movimiento_service = movimiento_service
         self.producto_service = producto_service
         self.producto_ui = producto_ui
@@ -56,6 +64,9 @@ class movimiento_ui:
     # Mostrar historial de movimientos
     # ======================================
     def _mostrar_historial(self):
+        """
+        Muestra el historial de movimientos registrados en el sistema. Si no hay movimientos, muestra un mensaje indicando que no hay registros. Si hay movimientos, muestra una tabla con los detalles de cada movimiento.
+        """
         movimientos = self.movimiento_service.get_movimientos()
         
         if not movimientos:

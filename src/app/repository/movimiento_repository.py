@@ -8,9 +8,17 @@ RUTA_ARCHIVO = "data/movimientos.json"
 
 class movimiento_repository:
     
+    # Guardar la lista de movimientos en el JSON
     def guardar(self, lista_movimientos: list[MovimientoInventario]):
         os.makedirs("data", exist_ok=True)
+        """Guarda la lista de movimientos en un archivo JSON. Cada movimiento se guarda como un diccionario con sus atributos.
+
+        Args:
+            lista_movimientos (list[MovimientoInventario]): Lista de objetos MovimientoInventario a guardar
         
+        Returns:
+            None
+        """
         datos = []
         
         for movimiento in lista_movimientos:
@@ -29,8 +37,13 @@ class movimiento_repository:
         with open(RUTA_ARCHIVO, "w", encoding="utf-8") as f:
             json.dump(datos, f, indent=4, ensure_ascii=False)
     
-    # retorna lista de objetos movimiento inventario
+    # Cargar la lista de movimientos desde el JSON
     def cargar(self) -> list[MovimientoInventario]:
+        """Carga la lista de movimientos desde un archivo JSON. Cada movimiento se convierte en un objeto MovimientoInventario.
+
+        Returns:
+            list[MovimientoInventario]: Lista de objetos MovimientoInventario cargados desde el archivo JSON
+        """
         if not os.path.exists(RUTA_ARCHIVO):
             return []
         

@@ -4,6 +4,15 @@ from tabulate import tabulate
 
 # Tabla para los productos y sus datos
 def tabla_productos(lista_productos):
+    """
+    Genera una tabla con los datos de los productos, incluyendo su nombre, precio, stock, proveedor y descripción.
+
+    Args:
+        lista_productos (list): Lista de objetos Producto.
+    
+    Returns:
+        str: Tabla formateada con los datos de los productos.
+    """
     productos_data = []
     
     for producto in lista_productos:
@@ -27,6 +36,15 @@ def tabla_productos(lista_productos):
 
 # Tabla para ver el stock de los productos
 def tabla_stock(lista_productos):
+    """
+    Genera una tabla con el stock de los productos, incluyendo su nombre y nivel de stock. El nivel de stock se indica como "Bajo" si el stock es menor a 5, y "Alto" si es 5 o más.
+
+    Args:
+        lista_productos (list): Lista de objetos Producto.
+    
+    Returns:
+        str: Tabla formateada con el stock de los productos.
+    """
     productos_data = []
     
     for producto in lista_productos:
@@ -50,6 +68,15 @@ def tabla_stock(lista_productos):
 
 # Tabla para ver proveerdores y sus datos
 def tabla_proveedores(lista_proveedores):
+    """
+    Genera una tabla con los datos de los proveedores, incluyendo su nombre, teléfono y email.
+
+    Args:
+        lista_proveedores (list): Lista de objetos Proveedor.
+
+    Returns:
+        str: Tabla formateada con los datos de los proveedores.
+    """
     proveedores_data = []
     
     for proveedor in lista_proveedores:
@@ -71,6 +98,15 @@ def tabla_proveedores(lista_proveedores):
 
 # Tabla para ver los movimientos de stock
 def tabla_movimientos(lista_movimientos):
+    """
+    Genera una tabla con los movimientos de stock, incluyendo el nombre del producto, tipo de movimiento (entrada o salida), cantidad, fecha y hora.
+
+    Args:
+        lista_movimientos (list): Lista de objetos MovimientoStock.
+
+    Returns:
+        str: Tabla formateada con los movimientos de stock.
+    """
     movimientos_data = []
     
     for movimiento in lista_movimientos:
