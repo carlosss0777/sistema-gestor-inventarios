@@ -6,8 +6,9 @@ import unittest
 
 
 class TestMovimientoService(unittest.TestCase):
-    # comando para ejecutar las pruebas: 
-    # python -m unittest src.tests.test_movimiento_service
+    # comandos para ejecutar las pruebas: 
+    # cd src/
+    # python -m unittest tests.test_movimiento_service
     
     def setUp(self):
         self.service = movimiento_service(MovimientoRepositoryFalso())
