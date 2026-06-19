@@ -99,5 +99,28 @@ class TestProveedorService(unittest.TestCase):
         self.assertIn(self.proveedor_base, activos)
         self.assertNotIn(prov_inactivo, activos)
 
+    # Pruebas de actualizacion y eliminacion    
+    def test_actualizar_proveedor_exitoso(self):
+        # Modificar los datos del proveedor base
+        self.service.actualizar_proveedor(
+            self.proveedor_base, 
+            "Proveedor Central Modificado", 
+            "8888-9999", 
+            "nuevo@central.com"
+        )
+        
+        self.assertEqual(self.proveedor_base.nombre, "Proveedor Central Modificado")
+        self.assertEqual(self.proveedor_base.telefono, "8888-9999")
+        self.assertEqual(self.proveedor_base.email, "nuevo@central.com")
+
+    def test_eliminar_proveedor_logico(self):
+        # La eliminación debe cambiar el estado 'activo' a False
+        self.service.eliminar_proveedor("Proveedor Central")
+        self.assertFalse(self.proveedor_base.activo)
+
+    def test_eliminar_proveedor_inexistente_lanza_error(self):
+        with self.assertRaises(ValueError):
+            self.service.eliminar_proveedor("Proveedor Fantasma")
+
 if __name__ == '__main__':
     unittest.main()
