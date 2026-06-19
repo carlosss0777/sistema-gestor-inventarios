@@ -19,12 +19,20 @@ class TestProveedorService(unittest.TestCase):
         self.proveedor_base = self.service.registrar_proveedor("Proveedor Central", "2222-3333", "contacto@central.com")
         
     # pruebas de los metodos
-    
+
     # Pruebas de Validacion
     def test_validar_nombre_correcto(self):
         nombre_valido = "   Proveedor ABC   "
         resultado = self.service.validar_nombre(nombre_valido)
         self.assertEqual(resultado, "Proveedor ABC")
+
+    def test_validar_nombre_vacio_o_ninguno(self):
+        with self.assertRaises(ValueError):
+            self.service.validar_nombre("")
+        with self.assertRaises(ValueError):
+            self.service.validar_nombre("   ")
+        with self.assertRaises(ValueError):
+            self.service.validar_nombre(None)
 
 if __name__ == '__main__':
     unittest.main()
