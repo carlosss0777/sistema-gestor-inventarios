@@ -63,6 +63,11 @@ class TestProveedorService(unittest.TestCase):
         nuevo = self.service.registrar_proveedor("Distribuidora X", "1111-2222", "info@x.com")
         self.assertIn(nuevo, self.service.get_all())
         self.assertEqual(nuevo.nombre, "Distribuidora X")
+    
+    def test_registrar_proveedor_datos_invalidos(self):
+        # Si falla el teléfono, no debería registrarse
+        with self.assertRaises(ValueError):
+            self.service.registrar_proveedor("Distribuidora Y", "12345", "info@y.com")
 
 if __name__ == '__main__':
     unittest.main()
