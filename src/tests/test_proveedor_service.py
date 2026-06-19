@@ -6,9 +6,6 @@ import unittest
 
 
 class TestProveedorService(unittest.TestCase):
-    # comandos para ejecutar las pruebas: 
-    # cd src/
-    # python -m unittest tests.test_proveedor_service
     
     def setUp(self):
         # Inicializamos un repositorio falso limpio para cada prueba
@@ -121,6 +118,7 @@ class TestProveedorService(unittest.TestCase):
     def test_eliminar_proveedor_inexistente_lanza_error(self):
         with self.assertRaises(ValueError):
             self.service.eliminar_proveedor("Proveedor Fantasma")
+
 
 if __name__ == '__main__':
     unittest.main()
