@@ -57,6 +57,12 @@ class TestProveedorService(unittest.TestCase):
             with self.subTest(email=email):
                 with self.assertRaises(ValueError):
                     self.service.validar_email(email)
+    
+    # Pruebas de registros y duplicados
+    def test_registrar_proveedor_exitoso(self):
+        nuevo = self.service.registrar_proveedor("Distribuidora X", "1111-2222", "info@x.com")
+        self.assertIn(nuevo, self.service.get_all())
+        self.assertEqual(nuevo.nombre, "Distribuidora X")
 
 if __name__ == '__main__':
     unittest.main()
