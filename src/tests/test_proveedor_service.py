@@ -33,6 +33,18 @@ class TestProveedorService(unittest.TestCase):
             self.service.validar_nombre("   ")
         with self.assertRaises(ValueError):
             self.service.validar_nombre(None)
+    
+    def test_validar_telefono_correcto(self):
+        tel_valido = "7777-8888"
+        resultado = self.service.validar_telefono(tel_valido)
+        self.assertEqual(resultado, "7777-8888")
+
+    def test_validar_telefono_formato_incorrecto(self):
+        formatos_invalidos = ["12345678", "123-45678", "abcd-efgh", "", None]
+        for tel in formatos_invalidos:
+            with self.subTest(telefono=tel):
+                with self.assertRaises(ValueError):
+                    self.service.validar_telefono(tel)
 
 if __name__ == '__main__':
     unittest.main()
