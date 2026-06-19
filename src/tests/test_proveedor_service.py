@@ -68,6 +68,18 @@ class TestProveedorService(unittest.TestCase):
         # Si falla el teléfono, no debería registrarse
         with self.assertRaises(ValueError):
             self.service.registrar_proveedor("Distribuidora Y", "12345", "info@y.com")
+    
+    def test_validar_duplicado_lanza_error(self):
+        # "Proveedor Central" ya fue registrado
+        with self.assertRaises(ValueError):
+            self.service.validar_duplicado("proveedor central") # Probar insensibilidad a mayúsculas
+
+    def test_validar_duplicado_no_lanza_error(self):
+        # No debería lanzar ninguna excepción si el nombre está disponible
+        try:
+            self.service.validar_duplicado("Proveedor Nuevo Totalmente")
+        except ValueError:
+            self.fail("validar_duplicado() lanzó ValueError con un nombre inexistente.")
 
 if __name__ == '__main__':
     unittest.main()
