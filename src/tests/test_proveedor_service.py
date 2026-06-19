@@ -80,6 +80,24 @@ class TestProveedorService(unittest.TestCase):
             self.service.validar_duplicado("Proveedor Nuevo Totalmente")
         except ValueError:
             self.fail("validar_duplicado() lanzó ValueError con un nombre inexistente.")
+    
+    # Pruebas de busqueda y filtrado
+    def test_buscar_proveedor_existente_e_inexistente(self):
+        encontrado = self.service.buscar_proveedor("pRoVeEdOr CeNtRaL")
+        self.assertIsNotNone(encontrado)
+        self.assertEqual(encontrado.nombre, "Proveedor Central")
+
+        no_encontrado = self.service.buscar_proveedor("No Existo")
+        self.assertIsNone(no_encontrado)
+        
+    def test_get_proveedores_solo_activos(self):
+        # Registramos otro y lo ponemos inactivo directamente
+        prov_inactivo = self.service.registrar_proveedor("Proveedor Inactivo", "4444-5555", "inactivo@test.com")
+        prov_inactivo.activo = False
+
+        activos = self.service.get_proveedores()
+        self.assertIn(self.proveedor_base, activos)
+        self.assertNotIn(prov_inactivo, activos)
 
 if __name__ == '__main__':
     unittest.main()
