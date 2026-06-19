@@ -45,6 +45,18 @@ class TestProveedorService(unittest.TestCase):
             with self.subTest(telefono=tel):
                 with self.assertRaises(ValueError):
                     self.service.validar_telefono(tel)
+    
+    def test_validar_email_correcto(self):
+        email_valido = "  test@proveedor.com  "
+        resultado = self.service.validar_email(email_valido)
+        self.assertEqual(resultado, "test@proveedor.com")
+
+    def test_validar_email_incorrecto(self):
+        emails_invalidos = ["testproveedor.com", "test@proveedor", "", None]
+        for email in emails_invalidos:
+            with self.subTest(email=email):
+                with self.assertRaises(ValueError):
+                    self.service.validar_email(email)
 
 if __name__ == '__main__':
     unittest.main()
