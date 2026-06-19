@@ -1,17 +1,13 @@
 # Pruebas a movimiento_service
 
-from datetime import datetime
-from unittest.mock import patch
-
 from app.service.movimiento_service import movimiento_service
 from tests.fakes import MovimientoRepositoryFalso
+from unittest.mock import patch
+from datetime import datetime
 import unittest
 
 
 class TestMovimientoService(unittest.TestCase):
-    # comandos para ejecutar las pruebas:
-    # cd src/
-    # python -m unittest tests.test_movimiento_service
 
     def setUp(self):
         self.repo_falso = MovimientoRepositoryFalso()
@@ -92,8 +88,6 @@ class TestMovimientoService(unittest.TestCase):
         self.assertEqual(movimientos[0].nombre_producto, "Mouse")
         self.assertEqual(movimientos[0].tipo_movimiento, "Salida")
         self.assertEqual(movimientos[0].cantidad, "2")
-
-
 
 
 if __name__ == '__main__':
